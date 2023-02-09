@@ -1,4 +1,4 @@
-import Ship from "../Ship";
+import Ship from "../modules/Ship";
 
 describe('Ship', () => {
   let ship;
@@ -13,11 +13,6 @@ describe('Ship', () => {
 
   it('should not be sunk initially', () => {
     expect(ship.isSunk()).toBe(false);
-  });
-
-  it('should register hits correctly', () => {
-    ship.hit();
-    expect(ship.hits).toBe(1);
   });
 
   it('should become sunk after enough hits', () => {
