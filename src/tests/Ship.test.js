@@ -4,7 +4,7 @@ describe('Ship', () => {
   let ship;
 
   beforeEach(() => {
-    ship = new Ship(3);
+    ship = Ship(3);
   });
 
   it('should have the correct length', () => {
