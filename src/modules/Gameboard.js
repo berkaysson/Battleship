@@ -3,7 +3,12 @@ import Ship from "./Ship";
 const Gameboard = (size) => {
   let board = createBoard(size); // 10x10 gameboard
 
-  function placeShip(startPos, endPos, ship) {
+  function placeShip(startPos, dir = 'hor', ship) {
+    let endPos;
+    if (dir === "ver") endPos = [startPos[0], startPos[1] + ship.length - 1];  
+    else if (dir === "hor") endPos = [startPos[0] + ship.length - 1, startPos[1]];
+    else return 'Direction is nor correct.'
+
     if(isInBoard(startPos) && isInBoard(endPos)){
       for (let x = startPos[0]; x <= endPos[0]; x++) {
         for (let y = startPos[1]; y <= endPos[1]; y++) {
