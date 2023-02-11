@@ -1,0 +1,16 @@
+.gameboard{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-gap: 2px;
+}
+
+.grid {
+  background-color: #ddd;
+  border: 1px solid #333;
+  height: 30px;
+  aspect-ratio: 1/1;
+}
