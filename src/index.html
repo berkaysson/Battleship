@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../src/style/style.css">
   <title>Battleship</title>
 </head>
 <body>
-  <h1>BATTLESHİP</h1>
+  <h1>BATTLESHIP</h1>
 
   <main id="Game">
     <div id="Player1">
@@ -23,6 +24,15 @@
       </div>
     </div>
   </main>
-  
+
+  <div class="modal" id="placement-form">
+    <p>Please place ship of this length : <span id="ship-length"></span></p>
+    <div class="gameboard" id="placement-board">
+
+    </div>
+
+    <button class="btn" id="placement-btn">Approve</button>
+  </div>
+
 </body>
 </html>
