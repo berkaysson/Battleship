@@ -1,3 +1,3 @@
-import Ship from "./Ship";
+import UI from "./Game/UI";
 
-let newShip = Ship(5);
+UI.render();
