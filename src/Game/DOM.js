@@ -4,5 +4,8 @@ export default {
   player2Info: document.getElementById("player2-info"),
   player2Gameboard: document.getElementById("player2-gameboard"),
   placementBoard: document.getElementById("placement-board"),
-  placementBtn: document.getElementById("placement-btn")
+  placementBtn: document.getElementById("placement-btn"),
+  rotateBtn:  document.getElementById("rotate-placement-btn"),
+  shipDirInfo: document.getElementById("ship-direction"),
+  shipLengthInfo: document.getElementById("ship-length"),
 };
