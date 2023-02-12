@@ -1,7 +1,7 @@
 import Ship from '../modules/Ship';
 import Player from '../modules/Player';
 
-const Game = () => { // can be make this a factory function
+const Game = () => {
   const player1 = Player();
   const player2 = Player();
   let turn = 0;
@@ -9,22 +9,27 @@ const Game = () => { // can be make this a factory function
   let winner = '';
   let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
 
-  const startGame = () => { // check if neccesary
+  const startGame = () => { // check if necesary
     placeShipsPerson();
     placeShipsAI();
     playGame();
   }
   
-  const playGame = () => {  // should check winner every turn, can be unnecessary ?
+  const playGame = () => {  // should check winner every turn, check if necesary ?
     while (!isGameOver) {
       checkWinner();
     }
   }
 
   const placeShipsPerson = (pos) => {
-    //  will use player1.gameboard.placeShip with argument from UI
-    // every placement of ship will be removed from array of ships
-    // when array became emptyi the UI approve button should be available
+    if(ships.length === 0) return 'No ship left to placement.';
+    if (
+      player1.gameboard.placeShip([pos[0], pos[1]], pos[2], ships[0]) ===
+      "Ship is placed"
+    ) {
+      ships.shift();
+      return true;
+    }
   }
 
   const placeShipsAI = () => {
@@ -37,8 +42,9 @@ const Game = () => { // can be make this a factory function
     // can contain makeTurn
   }
 
-  const makeTurn = () => {  // check if necessary
-    turn++;
+  const currentShipLength = () => {
+    if(ships.length === 0) return 'No ship left to placement.'
+    return ships[0].length;
   }
 
   const checkWinner = () => {
@@ -68,9 +74,11 @@ const Game = () => { // can be make this a factory function
     placeShipsPerson,
     placeShipsAI,
     attackAI,
-    makeTurn,
     checkWinner,
     resetGame,
+    player1,
+    player2,
+    currentShipLength
   };
 };
 
