@@ -3,18 +3,18 @@ const Gameboard = (size) => {
 
   function placeShip(startPos, dir = "hor", ship) {
     let endPos;
-    if (dir === "ver") endPos = [startPos[0], startPos[1] + ship.length - 1];
-    else if (dir === "hor")
+    if (dir === "hor") endPos = [startPos[0], startPos[1] + ship.length - 1];
+    else if (dir === "ver")
       endPos = [startPos[0] + ship.length - 1, startPos[1]];
-    else return "Direction is nor correct.";
+    else return "Direction is not correct.";
 
-    if (isInBoard(startPos) && isInBoard(endPos)) {
+    if (isAvailableToPlace(startPos, endPos)) {
       for (let x = startPos[0]; x <= endPos[0]; x++) {
         for (let y = startPos[1]; y <= endPos[1]; y++) {
-          if (isEmpty([x, y])) board[x][y] = ship;
-          else return "The position is used.";
+          board[x][y] = ship;
         }
       }
+      return 'Ship is placed';
     } else {
       return "Invalid position.";
     }
@@ -52,8 +52,8 @@ const Gameboard = (size) => {
     if (
       position[0] < 0 ||
       position[1] < 0 ||
-      position[0] > board.length ||
-      position[1] > board.length
+      position[0] > board.length -1 ||
+      position[1] > board.length -1
     ) {
       return false;
     }
@@ -65,7 +65,20 @@ const Gameboard = (size) => {
     else return false;
   }
 
-  return { board, placeShip, receiveAttack, isShipLeft };
+  function isAvailableToPlace(startPos, endPos) {
+    if (isInBoard(startPos) && isInBoard(endPos)) {
+      for (let x = startPos[0]; x <= endPos[0]; x++) {
+        for (let y = startPos[1]; y <= endPos[1]; y++) {
+          if (!isEmpty([x, y])) return false;
+        }
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  return { board, placeShip, receiveAttack, isShipLeft, isInBoard, isEmpty };
 };
 
 function createBoard(size) {
