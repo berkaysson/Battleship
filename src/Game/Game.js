@@ -1,7 +1,7 @@
 import Ship from '../modules/Ship';
 import Player from '../modules/Player';
 
-export default class Game {
+export default class Game { // can be make this a factory function
   constructor(){
     this.player1 = Player();  // Person
     this.player2 = Player();  // AI
@@ -11,29 +11,37 @@ export default class Game {
     this.ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
   }
 
-  static startGame(){
+  static startGame(){ // check if necessary
     Game.placeShipsPerson();
     Game.placeShipsAI();
     Game.playGame();
   }
 
-  static playGame(){
+  static playGame(){  // should check winner every turn, can be unnecessary ?
     while(!this.isGameOver){
-
+      
 
       Game.checkWinner();
     }
   }
 
-  static placeShipsPerson() {
-    
+  static placeShipsPerson(pos) {
+    //  will use this.player1.gameboard.placeShip with argument from UI
+    // every placement of ship will be removed from array of ships
+    // when array became emptyi the UI approve button should be available
   }
 
   static placeShipsAI(){
-
+    //  will use this.player2.gameboard.placeShip with argument from AI.js
+    // every placement of ship will be removed from array of ships
   }
 
-  static makeTurn(){
+  static attackAI(){
+    //  will use this.player1.gameboard.receiveAttack with argument form AI.js
+    // can contain makeTurn
+  }
+
+  static makeTurn(){  // check if neccessary
     this.turn++;
   }
 
@@ -59,5 +67,6 @@ export default class Game {
     this.turn = 0;
     this.isGameOver = false;
     this.winner = '';
+    this.ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
   }
 }
