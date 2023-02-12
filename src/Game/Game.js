@@ -1,72 +1,77 @@
 import Ship from '../modules/Ship';
 import Player from '../modules/Player';
 
-export default class Game { // can be make this a factory function
-  constructor(){
-    this.player1 = Player();  // Person
-    this.player2 = Player();  // AI
-    this.turn = 0;
-    this.isGameOver = false;
-    this.winner = '';
-    this.ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
+const Game = () => { // can be make this a factory function
+  const player1 = Player();
+  const player2 = Player();
+  let turn = 0;
+  let isGameOver = false;
+  let winner = '';
+  let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
+
+  const startGame = () => { // check if neccesary
+    placeShipsPerson();
+    placeShipsAI();
+    playGame();
   }
-
-  static startGame(){ // check if necessary
-    Game.placeShipsPerson();
-    Game.placeShipsAI();
-    Game.playGame();
-  }
-
-  static playGame(){  // should check winner every turn, can be unnecessary ?
-    while(!this.isGameOver){
-      
-
-      Game.checkWinner();
+  
+  const playGame = () => {  // should check winner every turn, can be unnecessary ?
+    while (!isGameOver) {
+      checkWinner();
     }
   }
 
-  static placeShipsPerson(pos) {
-    //  will use this.player1.gameboard.placeShip with argument from UI
+  const placeShipsPerson = (pos) => {
+    //  will use player1.gameboard.placeShip with argument from UI
     // every placement of ship will be removed from array of ships
     // when array became emptyi the UI approve button should be available
   }
 
-  static placeShipsAI(){
-    //  will use this.player2.gameboard.placeShip with argument from AI.js
+  const placeShipsAI = () => {
+    //  will use player2.gameboard.placeShip with argument from AI.js
     // every placement of ship will be removed from array of ships
   }
 
-  static attackAI(){
-    //  will use this.player1.gameboard.receiveAttack with argument form AI.js
+  const attackAI = () => {
+    //  will use player1.gameboard.receiveAttack with argument form AI.js
     // can contain makeTurn
   }
 
-  static makeTurn(){  // check if neccessary
-    this.turn++;
+  const makeTurn = () => {  // check if necessary
+    turn++;
   }
 
-  static checkWinner(){
-    if(this.player1.checkWin(this.player2)){
-      this.isGameOver = true;
-      this.winner = 'Player 1';
-    }
-
-    else if(this.player2.checkWin(this.player1)){
-      this.isGameOver = true;
-      this.winner = 'Player 2';
-    }
-
-    else{
-      this.isGameOver = false;
+  const checkWinner = () => {
+    if (player1.checkWin(player2)) {
+      isGameOver = true;
+      winner = 'Player 1';
+    } else if (player2.checkWin(player1)) {
+      isGameOver = true;
+      winner = 'Player 2';
+    } else {
+      isGameOver = false;
     }
   }
 
-  static resetGame(){
-    this.player1 = Player();
-    this.player2 = Player();
-    this.turn = 0;
-    this.isGameOver = false;
-    this.winner = '';
-    this.ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
+  const resetGame = () => {
+    player1 = Player();
+    player2 = Player();
+    turn = 0;
+    isGameOver = false;
+    winner = '';
+    ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
   }
-}
+
+  return {
+    startGame,
+    playGame,
+    placeShipsPerson,
+    placeShipsAI,
+    attackAI,
+    makeTurn,
+    checkWinner,
+    resetGame,
+  };
+};
+
+export default Game;
