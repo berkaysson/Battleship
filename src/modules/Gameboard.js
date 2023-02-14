@@ -2,12 +2,7 @@ const Gameboard = (size) => {
   let board = createBoard(size); // 10x10 gameboard
 
   function placeShip(startPos, dir = "hor", ship) {
-    let endPos;
-    if (dir === "hor") endPos = [startPos[0], startPos[1] + ship.length - 1];
-    else if (dir === "ver")
-      endPos = [startPos[0] + ship.length - 1, startPos[1]];
-    else return "Direction is not correct.";
-
+    const endPos = getEndPosition(startPos, dir, ship.length);
     if (isAvailableToPlace(startPos, endPos)) {
       for (let x = startPos[0]; x <= endPos[0]; x++) {
         for (let y = startPos[1]; y <= endPos[1]; y++) {
@@ -71,14 +66,25 @@ const Gameboard = (size) => {
         for (let y = startPos[1]; y <= endPos[1]; y++) {
           if (!isEmpty([x, y])) return false;
         }
-        return true;
+        
       }
+      return true;
     } else {
       return false;
     }
   }
 
-  return { board, placeShip, receiveAttack, isShipLeft, isInBoard, isEmpty };
+  function getEndPosition(startPos, dir, distance){
+    let endPos;
+    if (dir === "hor") endPos = [startPos[0], startPos[1] + distance - 1];
+    else if (dir === "ver")
+      endPos = [startPos[0] + distance - 1, startPos[1]];
+    else return false;
+
+    return endPos
+  }
+
+  return { board, placeShip, receiveAttack, isShipLeft, isInBoard, isEmpty, getEndPosition };
 };
 
 function createBoard(size) {
