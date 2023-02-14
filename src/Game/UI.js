@@ -29,29 +29,29 @@ export default class UI{
         let grid = document.createElement("div");
         grid.className = "grid";
         grid.id = `grid-${row}-${col}-P`;
-        grid.addEventListener("click", () => {
-          if (UI.game.placeShipsPerson([
-              row,
-              col,
-              rotateBtn.getAttribute("data-direction")]) !== false) 
-          {
-            shipLengthInfo.textContent =
-              UI.game.player1.getShip() instanceof Object
-                ? UI.game.player1.getShip().length
-                : UI.game.player1.getShip();
-            if(!(UI.game.player1.getShip() instanceof Object)) approveBtn.removeAttribute('disabled');
-          }
-          UI.#updateBoard(placementBoard);
-        });
+        grid.addEventListener("click", () => {UI.#placementHelper(row, col)});
         placementBoard.appendChild(grid);
       }
     }
     // can be add feature of removing placed ships
   }
 
+  static #placementHelper(row, col){
+    if (UI.game.placeShipsPerson([
+      row,
+      col,
+      rotateBtn.getAttribute("data-direction")]) !== false) {
+    shipLengthInfo.textContent =
+      UI.game.player1.getShip() instanceof Object
+        ? UI.game.player1.getShip().length
+        : UI.game.player1.getShip();
+    if(!(UI.game.player1.getShip() instanceof Object)) approveBtn.removeAttribute('disabled');
+  }
+  UI.#updateBoard(placementBoard);
+  }
+
   static initGameboards(){
     placementForm.style.display = 'none'
-
     UI.#createBoard(player1Gameboard, 'player1');
     UI.#createBoard(player2Gameboard, 'player2');
     UI.#updateBoard(player1Gameboard);
@@ -60,8 +60,8 @@ export default class UI{
   }
 
   static #updateBoard(boardDiv, player = 'player1'){
-    const children = boardDiv.children;
-    const game = UI.game[`${player}`].gameboard.board;
+    let children = boardDiv.children;
+    let game = UI.game[`${player}`].gameboard.board;
     for (let child of children) {
       if (game[Number(child.id[5])][Number(child.id[7])] instanceof Object) {
         child.classList.add("ship");
@@ -69,18 +69,21 @@ export default class UI{
     }
   }
 
-  static #createBoard(boardDiv, player = 'player1') {
-    const gameboard = (player === 'player1') ? UI.game.player1.gameboard : UI.game.player2.gameboard;
-    const className = (player === 'player1') ? "grid" : "grid AI-grid";
-  
+  static #createBoard(boardDiv, player = 'player1', className = "grid") {
+    let gameboard = (player === 'player1') ? UI.game.player1.gameboard : UI.game.player2.gameboard;
     for (let row = 0; row < gameboard.board.length; row++) {
       for (let col = 0; col < gameboard.board.length; col++) {
-        let grid = document.createElement("div");
-        grid.className = className;
-        grid.id = `grid-${row}-${col}-G-${player.charAt(0)}`;
+        let grid = UI.#createGrid(row, col, player.charAt(0), className);
         boardDiv.appendChild(grid);
       }
     }
+  }
+
+  static #createGrid(row, col, player, className = "grid") {
+    let grid = document.createElement("div");
+    grid.className = className;
+    grid.id = `grid-${row}-${col}-G-${player}`;
+    return grid;
   }
 
   static initButtons(){
