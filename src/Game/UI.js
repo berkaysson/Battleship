@@ -6,8 +6,9 @@ const {
   player1Gameboard,
   player2Info,
   player2Gameboard,
+  placementForm,
   placementBoard,
-  placementBtn,
+  approveBtn,
   rotateBtn,
   shipDirInfo,
   shipLengthInfo
@@ -23,47 +24,71 @@ export default class UI{
   }
 
   static initPlacementBoard(){
-    for(let row = 0; row < 10; row++){
-      for(let col = 0; col < 10; col++){
+    for(let row = 0; row < UI.game.player1.gameboard.board.length; row++){
+      for(let col = 0; col < UI.game.player1.gameboard.board.length; col++){
         let grid = document.createElement("div");
         grid.className = "grid";
-        grid.id = `grid-${row}-${col}`;
+        grid.id = `grid-${row}-${col}-P`;
         grid.addEventListener("click", () => {
           if (UI.game.placeShipsPerson([
               row,
               col,
               rotateBtn.getAttribute("data-direction")]) !== false) 
           {
-            if(UI.game.currentShipLength()) shipLengthInfo.textContent = UI.game.currentShipLength();
+            shipLengthInfo.textContent =
+              UI.game.player1.getShip() instanceof Object
+                ? UI.game.player1.getShip().length
+                : UI.game.player1.getShip();
+            if(!(UI.game.player1.getShip() instanceof Object)) approveBtn.removeAttribute('disabled');
           }
-          UI.updateBoard(placementBoard);
+          UI.#updateBoard(placementBoard);
         });
         placementBoard.appendChild(grid);
       }
     }
-    // later can be add feature of removing placed ships
-    // add eventlistener to Approve button in placement modal, if all ships are placed correctly then approve button will be available
-    // when clicked approve button call initGameboard(), when clicked approvebutton also AI should place its ships
+    // can be add feature of removing placed ships
   }
 
-  static updateBoard(boardDiv){
+  static initGameboards(){
+    placementForm.style.display = 'none'
+
+    UI.#createBoard(player1Gameboard, 'player1');
+    UI.#createBoard(player2Gameboard, 'player2');
+    UI.#updateBoard(player1Gameboard);
+    UI.#updateBoard(player2Gameboard, 'player2');
+    // every grid of player2 will have events(click) of: Gameboard.receivAttack, Game.attackAI, (maybe makeTurn), with this every attack of Person will be met with attack of AI(before attack of Aı and person, it should be checked if someone wins)
+  }
+
+  static #updateBoard(boardDiv, player = 'player1'){
     const children = boardDiv.children;
+    const game = UI.game[`${player}`].gameboard.board;
     for (let child of children) {
-      if (
-        UI.game.player1.gameboard.board[Number(child.id[5])][Number(child.id[7])] instanceof Object) {
+      if (game[Number(child.id[5])][Number(child.id[7])] instanceof Object) {
         child.classList.add("ship");
       }
     }
   }
 
-  static initGameboard(){
-    // should init. gameboards acc to player 1 and player2
-    // every grid of player2 will have events(click) of: Gameboard.receivAttack, Game.attackAI, (maybe makeTurn), with this every attack of Person will be met with attack of AI(before attack of Aı and person, it should be checked if someone wins)
-    // every grid of board of player1 will have style acc to null or ship and also hit or miss
-    // every grid of board of player2(AI) will have style acc to hit or miss
+  static #createBoard(boardDiv, player = 'player1') {
+    const gameboard = (player === 'player1') ? UI.game.player1.gameboard : UI.game.player2.gameboard;
+    const className = (player === 'player1') ? "grid" : "grid AI-grid";
+  
+    for (let row = 0; row < gameboard.board.length; row++) {
+      for (let col = 0; col < gameboard.board.length; col++) {
+        let grid = document.createElement("div");
+        grid.className = className;
+        grid.id = `grid-${row}-${col}-G-${player.charAt(0)}`;
+        boardDiv.appendChild(grid);
+      }
+    }
   }
 
   static initButtons(){
+    UI.#initRotateButton();
+    UI.#initApproveButton();
+  }
+
+  static #initRotateButton(){
     rotateBtn.addEventListener("click", () => {
       let currentDirection = rotateBtn.getAttribute("data-direction");
       if (currentDirection === "hor") {
@@ -73,6 +98,13 @@ export default class UI{
         rotateBtn.setAttribute("data-direction", "hor");
         shipDirInfo.textContent = "Horizantally";
       }
+    });
+  }
+
+  static #initApproveButton(){
+    approveBtn.addEventListener("click", () => {
+      UI.game.placeShipsAI();
+      UI.initGameboards();
     });
   }
 }
