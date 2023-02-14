@@ -1,7 +1,9 @@
 import Gameboard from "./Gameboard"
+import Ship from "./Ship";
 
 const Player = () => {
-  let gameboard = Gameboard(10);
+  let gameboard = Gameboard(10);  // gameboard size idetifier
+  let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
 
   function attack(enemy, hitPos){
     if(checkEnemy(enemy)){
@@ -18,6 +20,15 @@ const Player = () => {
     else return 'Invalid Player.'
   }
 
+  function getShip(){
+    if(ships.length === 0) return 'No ship left.';
+    return ships[0];
+  }
+
+  function dequeShip(){
+    ships.shift();
+  }
+
   function checkEnemy(enemy){
     if(enemy instanceof Object){  // find a way to check 'enemy' is a Player
       return true
@@ -28,7 +39,9 @@ const Player = () => {
   return {
     gameboard,
     attack,
-    checkWin
+    checkWin,
+    getShip,
+    dequeShip
   };
 }
 
