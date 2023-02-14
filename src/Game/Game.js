@@ -1,5 +1,6 @@
 import Ship from '../modules/Ship';
 import Player from '../modules/Player';
+import AI from './AI';
 
 const Game = () => {
   const player1 = Player();
@@ -7,7 +8,7 @@ const Game = () => {
   let turn = 0;
   let isGameOver = false;
   let winner = '';
-  let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
+  let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];  // ships will be inside of Player
 
   const startGame = () => { // check if necesary
     placeShipsPerson();
@@ -22,29 +23,26 @@ const Game = () => {
   }
 
   const placeShipsPerson = (pos) => {
-    if(ships.length === 0) return 'No ship left to placement.';
     if (
-      player1.gameboard.placeShip([pos[0], pos[1]], pos[2], ships[0]) ===
+      player1.gameboard.placeShip([pos[0], pos[1]], pos[2], player1.getShip()) ===
       "Ship is placed"
     ) {
-      ships.shift();
-      return true;
+      player1.dequeShip();
     }
   }
 
   const placeShipsAI = () => {
-    //  will use player2.gameboard.placeShip with argument from AI.js
-    // every placement of ship will be removed from array of ships
+    while(player2.getShip() != 'No ship left.'){
+      if(player2.gameboard.placeShip(AI.getRandomPosition(), AI.getRandomDirection(), player2.getShip()) === 
+        "Ship is placed"){
+          player2.dequeShip()
+        }
+    }
   }
 
   const attackAI = () => {
     //  will use player1.gameboard.receiveAttack with argument form AI.js
     // can contain makeTurn
-  }
-
-  const currentShipLength = () => {
-    if(ships.length === 0) return 'No ship left to placement.'
-    return ships[0].length;
   }
 
   const checkWinner = () => {
@@ -78,7 +76,6 @@ const Game = () => {
     resetGame,
     player1,
     player2,
-    currentShipLength
   };
 };
 
