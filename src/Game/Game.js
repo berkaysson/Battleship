@@ -8,7 +8,6 @@ const Game = () => {
   let turn = 0;
   let isGameOver = false;
   let winner = '';
-  let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];  // ships will be inside of Player
 
   const startGame = () => { // check if necesary
     placeShipsPerson();
@@ -29,6 +28,11 @@ const Game = () => {
     ) {
       player1.dequeShip();
     }
+  }
+
+  const removeShipsPerson = (shipID) => {
+    player1.gameboard.removeShip(shipID);
+    player1.addShip(Number(shipID[7]));
   }
 
   const placeShipsAI = () => {
@@ -63,7 +67,7 @@ const Game = () => {
     turn = 0;
     isGameOver = false;
     winner = '';
-    ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
+    // ships willbe reseted
   }
 
   return {
@@ -74,6 +78,7 @@ const Game = () => {
     attackAI,
     checkWinner,
     resetGame,
+    removeShipsPerson,
     player1,
     player2,
   };
