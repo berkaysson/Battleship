@@ -9,18 +9,6 @@ const Game = () => {
   let isGameOver = false;
   let winner = '';
 
-  const startGame = () => { // check if necesary
-    placeShipsPerson();
-    placeShipsAI();
-    playGame();
-  }
-  
-  const playGame = () => {  // should check winner every turn, check if necesary ?
-    while (!isGameOver) {
-      checkWinner();
-    }
-  }
-
   const placeShipsPerson = (pos) => {
     if (
       player1.gameboard.placeShip([pos[0], pos[1]], pos[2], player1.getShip()) ===
@@ -44,21 +32,35 @@ const Game = () => {
     }
   }
 
+  const attackPerson = (position) => {
+    return player2.gameboard.receiveAttack(position);
+  }
+
   const attackAI = () => {
-    //  will use player1.gameboard.receiveAttack with argument form AI.js
-    // can contain makeTurn
+    let attackPos = AI.getRandomPosition();
+    if(!(player2.gameboard.isAvailableToHit(attackPos))){
+      attackAI();
+    }
+    else{
+      player1.gameboard.receiveAttack(attackPos);
+      checkWinner();
+      return;
+    }
   }
 
   const checkWinner = () => {
     if (player1.checkWin(player2)) {
       isGameOver = true;
       winner = 'Player 1';
+      console.log('win'+ winner);
     } else if (player2.checkWin(player1)) {
       isGameOver = true;
       winner = 'Player 2';
+      console.log('win'+ winner);
     } else {
       isGameOver = false;
     }
+
   }
 
   const resetGame = () => {
@@ -71,14 +73,14 @@ const Game = () => {
   }
 
   return {
-    startGame,
-    playGame,
     placeShipsPerson,
     placeShipsAI,
     attackAI,
     checkWinner,
     resetGame,
     removeShipsPerson,
+    attackPerson,
+    attackAI,
     player1,
     player2,
   };
