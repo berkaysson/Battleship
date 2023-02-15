@@ -22,11 +22,16 @@ const Player = () => {
 
   function getShip(){
     if(ships.length === 0) return 'No ship left.';
+    ships = ships.sort((b, a) => a.length - b.length);
     return ships[0];
   }
 
   function dequeShip(){
     ships.shift();
+  }
+
+  function addShip(shipLength){
+    ships.unshift(Ship(shipLength));
   }
 
   function checkEnemy(enemy){
@@ -41,7 +46,8 @@ const Player = () => {
     attack,
     checkWin,
     getShip,
-    dequeShip
+    dequeShip,
+    addShip
   };
 }
 
