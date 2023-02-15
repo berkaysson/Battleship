@@ -28,7 +28,7 @@ export default class UI{
   static initPlacementBoard(){
     for(let row = 0; row < UI.game.player1.gameboard.board.length; row++){
       for(let col = 0; col < UI.game.player1.gameboard.board.length; col++){
-        let grid = document.createElement("div"); // check, can #createBoard be used in here
+        let grid = document.createElement("div");
         grid.className = "grid";
         grid.id = `grid-${row}-${col}-P`;
         grid.addEventListener("click", () => {
@@ -63,33 +63,51 @@ export default class UI{
     placementForm.style.display = 'none'
     UI.#createBoard(player1Gameboard, 'player1');
     UI.#createBoard(player2Gameboard, 'player2');
-    UI.#updateBoard(player1Gameboard);
+    UI.#updateBoard(player1Gameboard, 'player1');
     UI.#updateBoard(player2Gameboard, 'player2');
-    // every grid of player2 will have events(click) of: Gameboard.receivAttack, Game.attackAI, (maybe makeTurn), with this every attack of Person will be met with attack of AI(before attack of Aı and person, it should be checked if someone wins)
   }
 
   static #updateBoard(boardDiv, player = 'player1'){
     let children = boardDiv.children;
-    let game = UI.game[`${player}`].gameboard.board;
+    let board_ = UI.game[`${player}`].gameboard.board;
     for (let child of children) {
-      if (game[Number(child.id[5])][Number(child.id[7])] instanceof Object) {
+      let [posX, posY] = UI.#getGridPosition(child)
+      if (board_[posX][posY] instanceof Object) {
         child.classList.add('ship');
-        child.classList.add(`${game[Number(child.id[5])][Number(child.id[7])].getID()}`);
+        child.classList.add(`${board_[posX][posY].getID()}`);
       }
-      else if (game[Number(child.id[5])][Number(child.id[7])] == null){
+      else if (board_[posX][posY] == null){
         child.setAttribute('class', 'grid');
+      }
+      if (board_[posX][posY] === 'Hit!'){
+        child.setAttribute('class', 'grid hit');
+      }
+      else if (board_[posX][posY] === 'Miss!'){
+        child.setAttribute('class', 'grid miss');
       }
     }
   }
 
-  static #createBoard(boardDiv, player = 'player1', className = "grid") {
+  static #createBoard(boardDiv, player, className = "grid") {
     let gameboard = (player === 'player1') ? UI.game.player1.gameboard : UI.game.player2.gameboard;
     for (let row = 0; row < gameboard.board.length; row++) {
       for (let col = 0; col < gameboard.board.length; col++) {
-        let grid = UI.#createGrid(row, col, player.charAt(0), className);
+        let grid = UI.#createGrid(row, col, player[6], className);
+        if(player === 'player2'){
+          grid.addEventListener('click', () =>{
+            UI.#createBoardAttackHelper(grid);
+          });
+        }
         boardDiv.appendChild(grid);
       }
     }
+  }
+
+  static #createBoardAttackHelper(grid){
+    UI.game.attackPerson(UI.#getGridPosition(grid));
+    UI.#updateBoard(player2Gameboard, 'player2');
+    UI.game.attackAI();
+    UI.#updateBoard(player1Gameboard, 'player1');
   }
 
   static #createGrid(row, col, player, className = "grid") {
@@ -97,6 +115,10 @@ export default class UI{
     grid.className = className;
     grid.id = `grid-${row}-${col}-G-${player}`;
     return grid;
+  }
+
+  static #getGridPosition(grid){
+    return [Number(grid.id[5]), Number(grid.id[7])];
   }
 
   static #infoDisplay(){
@@ -117,10 +139,10 @@ export default class UI{
       let currentDirection = rotateBtn.getAttribute("data-direction");
       if (currentDirection === "hor") {
         rotateBtn.setAttribute("data-direction", "ver");
-        shipDirInfo.textContent = "Vertically";
+        shipDirInfo.textContent = "Vertically"; // implement into infoDisplay method
       } else {
         rotateBtn.setAttribute("data-direction", "hor");
-        shipDirInfo.textContent = "Horizantally";
+        shipDirInfo.textContent = "Horizantally"; // implement into infoDisplay method
       }
     });
   }
