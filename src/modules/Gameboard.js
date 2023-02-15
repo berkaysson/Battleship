@@ -1,7 +1,7 @@
 const Gameboard = (size) => {
   let board = createBoard(size); // 10x10 gameboard
 
-  function placeShip(startPos, dir = "hor", ship) {
+  function placeShip(startPos, dir, ship) {
     const endPos = getEndPosition(startPos, dir, ship.length);
     if (isAvailableToPlace(startPos, endPos)) {
       for (let x = startPos[0]; x <= endPos[0]; x++) {
@@ -79,7 +79,6 @@ const Gameboard = (size) => {
         for (let y = startPos[1]; y <= endPos[1]; y++) {
           if (!isEmpty([x, y])) return false;
         }
-        
       }
       return true;
     } else {
@@ -87,7 +86,13 @@ const Gameboard = (size) => {
     }
   }
 
-  function getEndPosition(startPos, dir, distance){
+  function isAvailableToHit(position){
+    if(board[position[0]][position[1]] !== 'Hit!' && board[position[0]][position[1]] !== 'Miss!')
+      return true;
+    else return false;
+  }
+
+  function getEndPosition(startPos, dir, distance){ // private ?
     let endPos;
     if (dir === "hor") endPos = [startPos[0], startPos[1] + distance - 1];
     else if (dir === "ver")
@@ -106,6 +111,7 @@ const Gameboard = (size) => {
     isEmpty,
     getEndPosition,
     removeShip,
+    isAvailableToHit
   };
 };
 
