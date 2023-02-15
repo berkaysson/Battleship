@@ -32,6 +32,19 @@ const Gameboard = (size) => {
     } else return "Invalid position.";
   }
 
+  function removeShip(shipID){
+    for (let x = 0; x < board.length; x++) {
+      for (let y = 0; y < board.length; y++) {
+        if(board[x][y] instanceof Object){
+          if (board[x][y].getID() === shipID) {
+            board[x][y] = null;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   function isShipLeft() {
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board.length; y++) {
@@ -84,7 +97,16 @@ const Gameboard = (size) => {
     return endPos
   }
 
-  return { board, placeShip, receiveAttack, isShipLeft, isInBoard, isEmpty, getEndPosition };
+  return {
+    board,
+    placeShip,
+    receiveAttack,
+    isShipLeft,
+    isInBoard,
+    isEmpty,
+    getEndPosition,
+    removeShip,
+  };
 };
 
 function createBoard(size) {
