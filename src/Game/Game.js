@@ -3,8 +3,8 @@ import Player from '../modules/Player';
 import AI from './AI';
 
 const Game = () => {
-  const player1 = Player();
-  const player2 = Player();
+  let player1 = Player();
+  let player2 = Player();
   let turn = 0;
   let isGameOver = false;
   let winner = '';
@@ -61,15 +61,6 @@ const Game = () => {
       isGameOver = false;
     }
 
-  }
-
-  const resetGame = () => {
-    player1 = Player();
-    player2 = Player();
-    turn = 0;
-    isGameOver = false;
-    winner = '';
-    // ships willbe reseted
   }
 
   return {

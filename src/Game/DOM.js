@@ -1,8 +1,10 @@
 export default {
+  gameDiv: document.getElementById("game"),
   player1Info: document.getElementById("player1-info"),
   player1Gameboard: document.getElementById("player1-gameboard"),
   player2Info: document.getElementById("player2-info"),
   player2Gameboard: document.getElementById("player2-gameboard"),
+  restartBtn:  document.getElementById("restart-btn"),
   placementForm: document.getElementById("placement-form"),
   placementBoard: document.getElementById("placement-board"),
   placementInfo: document.getElementById("placement-info"),

@@ -2,10 +2,12 @@ import Game from "./Game";
 import elements from "./DOM";
 
 const {
+  gameDiv,
   player1Info,
   player1Gameboard,
   player2Info,
   player2Gameboard,
+  restartBtn,
   placementForm,
   placementBoard,
   placementInfo,
@@ -60,7 +62,8 @@ export default class UI{
   }
 
   static initGameboards(){
-    placementForm.style.display = 'none'
+    // placementForm.style.display = 'none';
+    gameDiv.style.display = 'block';
     UI.#createBoard(player1Gameboard, 'player1');
     UI.#createBoard(player2Gameboard, 'player2');
     UI.#updateBoard(player1Gameboard, 'player1');
@@ -132,6 +135,7 @@ export default class UI{
     UI.#initRotateButton();
     UI.#initApproveButton();
     UI.#initRemoveButton();
+    UI.#initRestartButton();
   }
 
   static #initRotateButton(){
@@ -172,5 +176,22 @@ export default class UI{
         UI.placementMode = 'place';
       }
     });
+  }
+
+  static #initRestartButton(){
+    restartBtn.addEventListener('click', () => {
+      UI.game = Game();
+      UI.placementMode = 'place';
+      placementForm.style.display = 'block';
+      gameDiv.style.display = 'none';
+      player1Gameboard.textContent = '';
+      player2Gameboard.textContent = '';
+      UI.#updateBoard(placementBoard);
+      UI.#updateBoard(player1Gameboard, 'player1');
+      UI.#updateBoard(player2Gameboard, 'player2');
+      approveBtn.setAttribute('disabled', '');
+      removeBtn.classList.remove('active');
+      UI.#infoDisplay();
+    })
   }
 }

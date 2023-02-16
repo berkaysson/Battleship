@@ -2,6 +2,10 @@ body{
   background-color: #b99999;
 }
 
+#game{
+  display: none;
+}
+
 .gameboard{
   display: grid;
   justify-content: center;
