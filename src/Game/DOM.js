@@ -13,4 +13,8 @@ export default {
   removeBtn:  document.getElementById("remove-placement-btn"),
   shipDirInfo: document.getElementById("ship-direction"),
   shipLengthInfo: document.getElementById("ship-length"),
+  modal: document.getElementById("gameover-modal"),
+  winnerModal: document.getElementById("winner"),
+  restartModalBtn: document.getElementById("restart-modal-btn"),
+  statsModal: document.getElementById("stats-modal")
 };
