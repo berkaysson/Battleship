@@ -66,7 +66,7 @@ export default class UI{
   }
 
   static initGameboards(){
-    // placementForm.style.display = 'none';
+    placementForm.style.display = 'none';
     gameDiv.style.display = 'block';
     UI.#createBoard(player1Gameboard, 'player1');
     UI.#createBoard(player2Gameboard, 'player2');
@@ -102,7 +102,7 @@ export default class UI{
         let grid = UI.#createGrid(row, col, player[6], className);
         if(player === 'player2'){
           grid.addEventListener('click', () =>{
-            UI.#createBoardAttackHelper(grid);
+            UI.#BoardAttackManager(grid);
           });
         }
         boardDiv.appendChild(grid);
@@ -110,10 +110,11 @@ export default class UI{
     }
   }
 
-  static #createBoardAttackHelper(grid){
+  static #BoardAttackManager(grid){
     if((UI.game.attackPerson(UI.#getGridPosition(grid))) != false){
       UI.game.attackAI();
     }
+    if(UI.game.getisGameOver()) UI.#gameOver();
     UI.#updateBoard(player2Gameboard, 'player2');
     UI.#updateBoard(player1Gameboard, 'player1');
   }
@@ -188,9 +189,15 @@ export default class UI{
       UI.#restartGame();
     });
 
-    // restartModalBtn.addEventListener('click', () => {
-    //   UI.#restartGame();
-    // });
+    restartModalBtn.addEventListener('click', () => {
+      UI.#restartGame();
+      modal.style.display = 'none';
+    });
+  }
+
+  static #gameOver(){
+    modal.style.display = 'block';
+    winnerModal.textContent = UI.game.getWinner();
   }
 
   static #restartGame(){
