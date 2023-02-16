@@ -32,6 +32,8 @@ const Game = () => {
   }
 
   const attackPerson = (position) => {
+    checkWinner();
+    if(isGameOver === true) return;
     return player2.gameboard.receiveAttack(position);
   }
 
@@ -41,23 +43,31 @@ const Game = () => {
       attackAI();
     }
     else{
-      player1.gameboard.receiveAttack(attackPos)
       checkWinner();
+      if(isGameOver === true) return;
+      player1.gameboard.receiveAttack(attackPos)
       return;
     }
   }
 
   const checkWinner = () => {
     if (player1.checkWin(player2)) {
-      isGameOver = true;
       winner = 'Player 1';
+      isGameOver = true 
     } else if (player2.checkWin(player1)) {
-      isGameOver = true;
       winner = 'Player 2';
+      isGameOver = true ;
     } else {
-      isGameOver = false;
+      isGameOver = false; 
     }
+  }
 
+  const getisGameOver = () => {
+    return isGameOver;
+  }
+
+  const getWinner = () => {
+    return winner;
   }
 
   return {
@@ -68,6 +78,8 @@ const Game = () => {
     removeShipsPerson,
     attackPerson,
     attackAI,
+    getisGameOver,
+    getWinner,
     player1,
     player2,
   };
