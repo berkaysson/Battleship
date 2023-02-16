@@ -67,7 +67,7 @@ export default class UI{
 
   static initGameboards(){
     placementForm.style.display = 'none';
-    gameDiv.style.display = 'block';
+    gameDiv.style.display = 'grid';
     UI.#createBoard(player1Gameboard, 'player1');
     UI.#createBoard(player2Gameboard, 'player2');
     UI.#updateBoard(player1Gameboard, 'player1');
@@ -203,7 +203,7 @@ export default class UI{
   static #restartGame(){
     UI.game = Game();
     UI.placementMode = 'place';
-    placementForm.style.display = 'block';
+    placementForm.style.display = 'flex';
     gameDiv.style.display = 'none';
     player1Gameboard.textContent = '';
     player2Gameboard.textContent = '';
