@@ -5,7 +5,6 @@ import AI from './AI';
 const Game = () => {
   let player1 = Player();
   let player2 = Player();
-  let turn = 0;
   let isGameOver = false;
   let winner = '';
 
@@ -38,11 +37,11 @@ const Game = () => {
 
   const attackAI = () => {
     let attackPos = AI.getRandomPosition();
-    if(!(player2.gameboard.isAvailableToHit(attackPos))){
+    if(!(player1.gameboard.isAvailableToHit(attackPos))){
       attackAI();
     }
     else{
-      player1.gameboard.receiveAttack(attackPos);
+      player1.gameboard.receiveAttack(attackPos)
       checkWinner();
       return;
     }
@@ -52,11 +51,9 @@ const Game = () => {
     if (player1.checkWin(player2)) {
       isGameOver = true;
       winner = 'Player 1';
-      console.log('win'+ winner);
     } else if (player2.checkWin(player1)) {
       isGameOver = true;
       winner = 'Player 2';
-      console.log('win'+ winner);
     } else {
       isGameOver = false;
     }
@@ -68,7 +65,6 @@ const Game = () => {
     placeShipsAI,
     attackAI,
     checkWinner,
-    resetGame,
     removeShipsPerson,
     attackPerson,
     attackAI,
