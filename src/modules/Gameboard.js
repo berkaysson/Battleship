@@ -17,8 +17,8 @@ const Gameboard = (size) => {
 
   function receiveAttack(hitPos) {
     if (isInBoard(hitPos)) {
-      if (board[hitPos[0]][hitPos[1]] === "Hit!")
-        return "This position has been hitted.";
+      if (board[hitPos[0]][hitPos[1]] === "Hit!" || board[hitPos[0]][hitPos[1]] === "Miss!")
+        return false;
       else if (board[hitPos[0]][hitPos[1]] instanceof Object) {
         board[hitPos[0]][hitPos[1]].hit();
         if (board[hitPos[0]][hitPos[1]].isSunk()) {
@@ -29,7 +29,7 @@ const Gameboard = (size) => {
       } else if (board[hitPos[0]][hitPos[1]] == null) {
         board[hitPos[0]][hitPos[1]] = "Miss!";
       }
-    } else return "Invalid position.";
+    } else return false;
   }
 
   function removeShip(shipID){
