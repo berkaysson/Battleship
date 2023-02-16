@@ -15,7 +15,11 @@ const {
   rotateBtn,
   removeBtn,
   shipDirInfo,
-  shipLengthInfo
+  shipLengthInfo,
+  modal,
+  winnerModal,
+  restartModalBtn,
+  statsModal,
 } = elements;
 
 export default class UI{
@@ -107,9 +111,10 @@ export default class UI{
   }
 
   static #createBoardAttackHelper(grid){
-    UI.game.attackPerson(UI.#getGridPosition(grid));
+    if((UI.game.attackPerson(UI.#getGridPosition(grid))) != false){
+      UI.game.attackAI();
+    }
     UI.#updateBoard(player2Gameboard, 'player2');
-    UI.game.attackAI();
     UI.#updateBoard(player1Gameboard, 'player1');
   }
 
@@ -135,7 +140,7 @@ export default class UI{
     UI.#initRotateButton();
     UI.#initApproveButton();
     UI.#initRemoveButton();
-    UI.#initRestartButton();
+    UI.#initRestartButtons();
   }
 
   static #initRotateButton(){
@@ -178,20 +183,28 @@ export default class UI{
     });
   }
 
-  static #initRestartButton(){
+  static #initRestartButtons(){
     restartBtn.addEventListener('click', () => {
-      UI.game = Game();
-      UI.placementMode = 'place';
-      placementForm.style.display = 'block';
-      gameDiv.style.display = 'none';
-      player1Gameboard.textContent = '';
-      player2Gameboard.textContent = '';
-      UI.#updateBoard(placementBoard);
-      UI.#updateBoard(player1Gameboard, 'player1');
-      UI.#updateBoard(player2Gameboard, 'player2');
-      approveBtn.setAttribute('disabled', '');
-      removeBtn.classList.remove('active');
-      UI.#infoDisplay();
-    })
+      UI.#restartGame();
+    });
+
+    // restartModalBtn.addEventListener('click', () => {
+    //   UI.#restartGame();
+    // });
+  }
+
+  static #restartGame(){
+    UI.game = Game();
+    UI.placementMode = 'place';
+    placementForm.style.display = 'block';
+    gameDiv.style.display = 'none';
+    player1Gameboard.textContent = '';
+    player2Gameboard.textContent = '';
+    UI.#updateBoard(placementBoard);
+    UI.#updateBoard(player1Gameboard, 'player1');
+    UI.#updateBoard(player2Gameboard, 'player2');
+    approveBtn.setAttribute('disabled', '');
+    removeBtn.classList.remove('active');
+    UI.#infoDisplay();
   }
 }
