@@ -5,20 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../src/style/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;900&display=swap" rel="stylesheet">
   <title>Battleship</title>
 </head>
 <body>
-  <h1>BATTLESHIP</h1>
+  <header><h1>BATTLESHIP</h1></header>
 
   <main id="game">
-    <div id="Player1">
-      <div class="player-info" id="player1-info"></div>
+    <div class="player" id="Player1">
+      <div class="player-info" id="player1-info">PLAYER</div>
       <div class="gameboard" id="player1-gameboard">
 
       </div>
     </div>
-    <div id="Player2">
-      <div class="player-info" id="player2-info"></div>
+    <div class="player" id="Player2">
+      <div class="player-info" id="player2-info">COMPUTER</div>
       <div class="gameboard" id="player2-gameboard">
 
       </div>
@@ -28,9 +31,11 @@
   </main>
 
   <div id="placement-form">
-    <p><span id="placement-info">Please place ship of this length :</span>  <span id="ship-direction">Horizantally</span>  <span id="ship-length">5</span></p>
-    <button class="btn" id="rotate-placement-btn" data-direction="hor">Rotate Ship</button>
-    <button class="btn" id="remove-placement-btn">Remove Ship</button>
+    <div id="placement-header">
+      <p><span id="placement-info">Please place ship of this length :</span>  <span id="ship-direction">Horizantally</span> <span id="ship-length">5</span></p>
+      <button class="btn" id="rotate-placement-btn" data-direction="hor">Rotate Ship</button>
+      <button class="btn" id="remove-placement-btn">Remove Ship</button>
+    </div>
     <div class="gameboard" id="placement-board">
 
     </div>
@@ -40,7 +45,7 @@
   
   <div class="modal" id="gameover-modal">
     <div class="modal-content">
-      <p>The winner is : <span id="winner"></span></p>
+      <p>The winner is : <span id="winner">Player 1</span></p>
       <div id="stats-modal"></div>
       <button class="btn" id="restart-modal-btn">Restart now</button>
     </div>
