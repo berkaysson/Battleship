@@ -55,7 +55,7 @@ const Game = () => {
       winner = 'Player 1';
       isGameOver = true 
     } else if (player2.checkWin(player1)) {
-      winner = 'Player 2';
+      winner = 'Computer';
       isGameOver = true ;
     } else {
       isGameOver = false; 
