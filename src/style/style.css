@@ -87,6 +87,10 @@
   transition: inherit;
 }
 
+html, body {
+  width: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -101,6 +105,10 @@ body {
 header{
   font-size: var(--font-xlg);
   font-weight: var(--font-bold);
+}
+
+main {
+  max-width: 100%;
 }
 
 /* Ship Placement */
@@ -174,25 +182,45 @@ header{
   aspect-ratio: 1/1;
 }
 
-.grid:hover:not(#player1-gameboard>.grid){
+#placement-board>.place {
+  background-color: var(--ship-color);
+  opacity: 0.8;
   cursor: pointer;
+}
+
+#placement-board>.notplace {
+  background-color: var(--hit-color);
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+
+#player2-gameboard>.grid{
+  background-color: var(--grid-color-alt);
+  border: 1px var(--grid-color) solid;
+}
+
+.grid:hover:not(#player1-gameboard>.grid,.hit,.miss,#placement-board>.ship, #placement-board>.grid){
+  cursor: pointer;
+  border-radius: calc(var(--grid-border-radius)*3);
 }
 
 /* Ships */
 
 .ship:not(#player2-gameboard>.ship) {
-  background-color: #5c5656;
+  background-color: var(--ship-color);
   border-radius: 2px;
 }
 
 .hit {
-  background-color: var(--hit-color);
+  background-color: var(--hit-color) !important;
+  border: none !important;
   border-radius: 2px;
 }
 
 .miss {
   border-radius: 6px;
-  background-color: var(--miss-color);
+  background-color: var(--miss-color) !important;
 }
 
 .hit, .miss {
@@ -268,3 +296,74 @@ header{
 }
 
 /* Responsive */
+
+@media screen and (max-width: 900px) {
+  :root {
+    --gap: 0.5rem;
+    --grid-gap: 2px;
+    --padding: 0.9rem;
+    --padding-sl: 0.3rem;
+    --padding-lg: 2rem;
+    --btn-padding: 0.2rem;
+    --margin: 1rem;
+  
+    --grid-size: 30px;
+  
+    --grid-border-radius: 2px;
+    --button-border-radius: 6px;
+  
+    --font-lg: 1.2rem;
+    --font-xlg: 2rem;
+    --font-sl: 0.5rem;
+    --font-md: 1rem;
+  }
+
+  #game {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr auto;
+    grid-gap: 0;
+  }
+
+  #Player1{
+    grid-row: 1/2;
+  }
+
+  #Player2{
+    margin-top: 1.5rem;
+    grid-row: 2/3;
+  }
+
+  #restart-btn {
+    margin-top:1rem;
+    margin-bottom:1rem;
+    grid-row: 3/4;
+    height: auto;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    --gap: 0.3rem;
+    --grid-gap: 1px;
+    --padding: 0.7rem;
+    --padding-sl: 0.2rem;
+    --padding-lg: 1.5rem;
+    --btn-padding: 0.2rem;
+    --margin: 0.8rem;
+  
+    --grid-size: 25px;
+  
+    --grid-border-radius: 2px;
+    --button-border-radius: 5px;
+  
+    --font-lg: 1.2rem;
+    --font-xlg: 2rem;
+    --font-sl: 0.5rem;
+    --font-md: 1rem;
+  }
+
+  html
+
+  body{font-size: 12px;}
+}
