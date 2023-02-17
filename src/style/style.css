@@ -9,11 +9,14 @@
   --font-light:#4a4e69 ;
 
   --gap: 0.6rem;
+  --grid-gap: 3px;
   --padding: 1rem;
   --padding-sl: 0.4rem;
   --padding-lg: 3rem;
   --btn-padding: 0.4rem;
   --margin: 1.2rem;
+
+  --grid-size: 35px;
 
   --grid-border-radius: 3px;
   --button-border-radius: 8px;
@@ -35,11 +38,39 @@
   50% {
     transform: scale(1.1);
   }
-  75% {
+  65% {
     transform: scale(1);
   }
-  100% {
+  75% {
     transform: scale(0.9);
+  }
+  100% {
+    transform: scale(0.75);
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  20% {
+    opacity: 0.2;
+    transform: scale(0.4);
+  }
+  40% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -105,7 +136,7 @@ header{
   justify-content: center;
   align-items: center;
   justify-items: center;
-  width: 50%;
+  width: calc(2*(10*var(--grid-size) + var(--grid-gap)*9) + 150px);
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr 70px;
   grid-gap: 4rem;
@@ -130,8 +161,8 @@ header{
   align-items: center;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  grid-gap: 1px;
-  width: 309px;
+  grid-gap: var(--grid-gap);
+  width: calc(10*var(--grid-size) + var(--grid-gap)*9);
 }
 
 /* Grids */
@@ -139,7 +170,7 @@ header{
 .grid {
   background-color: var(--grid-color);
   border-radius: var(--grid-border-radius);
-  height: 30px;
+  height: var(--grid-size);
   aspect-ratio: 1/1;
 }
 
@@ -156,16 +187,16 @@ header{
 
 .hit {
   background-color: var(--hit-color);
-
+  border-radius: 2px;
 }
 
 .miss {
+  border-radius: 6px;
   background-color: var(--miss-color);
 }
 
 .hit, .miss {
-  border-radius: 6px;
-  transform: scale(0.9);
+  transform: scale(0.75);
   animation: scale 0.3s;
 }
 
@@ -208,6 +239,13 @@ header{
   height: 100%;
   overflow: auto;
   background-color: rgba(4, 5, 39, 0.8);
+  opacity: 0;
+}
+
+.modal.show {
+  display: block;
+  animation: opacity 0.2s;
+  opacity: 1;
 }
 
 .modal-content {
