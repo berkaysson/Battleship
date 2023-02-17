@@ -1,5 +1,5 @@
 const Gameboard = (size) => {
-  let board = createBoard(size); // 10x10 gameboard
+  let board = createBoard(size);
 
   function placeShip(startPos, dir, ship) {
     const endPos = getEndPosition(startPos, dir, ship.length);
@@ -9,7 +9,7 @@ const Gameboard = (size) => {
           board[x][y] = ship;
         }
       }
-      return 'Ship is placed';
+      return "Ship is placed";
     } else {
       return "Invalid position.";
     }
@@ -17,7 +17,10 @@ const Gameboard = (size) => {
 
   function receiveAttack(hitPos) {
     if (isInBoard(hitPos)) {
-      if (board[hitPos[0]][hitPos[1]] === "Hit!" || board[hitPos[0]][hitPos[1]] === "Miss!")
+      if (
+        board[hitPos[0]][hitPos[1]] === "Hit!" ||
+        board[hitPos[0]][hitPos[1]] === "Miss!"
+      )
         return false;
       else if (board[hitPos[0]][hitPos[1]] instanceof Object) {
         board[hitPos[0]][hitPos[1]].hit();
@@ -32,10 +35,10 @@ const Gameboard = (size) => {
     } else return false;
   }
 
-  function removeShip(shipID){
+  function removeShip(shipID) {
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board.length; y++) {
-        if(board[x][y] instanceof Object){
+        if (board[x][y] instanceof Object) {
           if (board[x][y].getID() === shipID) {
             board[x][y] = null;
           }
@@ -50,7 +53,7 @@ const Gameboard = (size) => {
       for (let y = 0; y < board.length; y++) {
         if (board[x][y] instanceof Object) {
           return true;
-        } // board[x][y] should be equal to a Ship instaces, find a way to check it
+        }
       }
     }
     return false;
@@ -60,8 +63,8 @@ const Gameboard = (size) => {
     if (
       position[0] < 0 ||
       position[1] < 0 ||
-      position[0] > board.length -1 ||
-      position[1] > board.length -1
+      position[0] > board.length - 1 ||
+      position[1] > board.length - 1
     ) {
       return false;
     }
@@ -86,20 +89,22 @@ const Gameboard = (size) => {
     }
   }
 
-  function isAvailableToHit(position){
-    if(board[position[0]][position[1]] !== 'Hit!' && board[position[0]][position[1]] !== 'Miss!')
+  function isAvailableToHit(position) {
+    if (
+      board[position[0]][position[1]] !== "Hit!" &&
+      board[position[0]][position[1]] !== "Miss!"
+    )
       return true;
     else return false;
   }
 
-  function getEndPosition(startPos, dir, distance){ // private ?
+  function getEndPosition(startPos, dir, distance) {
     let endPos;
     if (dir === "hor") endPos = [startPos[0], startPos[1] + distance - 1];
-    else if (dir === "ver")
-      endPos = [startPos[0] + distance - 1, startPos[1]];
+    else if (dir === "ver") endPos = [startPos[0] + distance - 1, startPos[1]];
     else return false;
 
-    return endPos
+    return endPos;
   }
 
   return {
@@ -111,7 +116,7 @@ const Gameboard = (size) => {
     isEmpty,
     getEndPosition,
     removeShip,
-    isAvailableToHit
+    isAvailableToHit,
   };
 };
 
