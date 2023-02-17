@@ -191,12 +191,12 @@ export default class UI{
 
     restartModalBtn.addEventListener('click', () => {
       UI.#restartGame();
-      modal.style.display = 'none';
+      modal.classList.remove('show');
     });
   }
 
   static #gameOver(){
-    modal.style.display = 'block';
+    modal.classList.add('show');
     winnerModal.textContent = UI.game.getWinner();
   }
 
