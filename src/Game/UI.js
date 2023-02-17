@@ -39,8 +39,16 @@ export default class UI{
         grid.id = `grid-${row}-${col}-P`;
         grid.addEventListener("click", () => {
           if(UI.placementMode === 'place')  UI.#placementHelper(row, col);
-          else if(UI.placementMode === 'remove') UI.#removeHelper(grid.classList[2]);
+          else if(UI.placementMode === 'remove') UI.#removeHelper(Array.from(grid.classList).find(cls => cls.includes('ID')));
         });
+        grid.addEventListener('mouseover', () => {  // hover effect
+          if(UI.placementMode === 'place') UI.#placementHoverHelper(row, col, 'hover');
+          
+        });
+        grid.addEventListener('mouseout', () => {
+          if(UI.placementMode === 'place') UI.#placementHoverHelper(row, col, 'unhover');
+        });
+
         placementBoard.appendChild(grid);
       }
     }
@@ -55,6 +63,24 @@ export default class UI{
       if(!(UI.game.player1.getShip() instanceof Object)) approveBtn.removeAttribute('disabled');
   }
   UI.#updateBoard(placementBoard);
+  }
+
+  static #placementHoverHelper(row, col, hover){
+    if (!(UI.game.player1.getShip() instanceof Object)) return;
+    const axis = rotateBtn.getAttribute("data-direction") === 'ver' ? 'x' : 'y';
+    const length = UI.game.player1.getShip().length;
+
+    for (let i = 0; i < length; i++) {
+    const axisValue = axis === 'x' ? row + i : col + i;
+    const grid = document.getElementById(`grid-${axis === 'x' ? axisValue : row}-${axis === 'y' ? axisValue : col}-P`);
+    if (grid) {
+      if (hover === 'hover') grid.classList.add('place');
+      else grid.classList.remove('place');
+    } else {
+      if(hover === 'hover') document.querySelectorAll('.place').forEach((e) => e.classList.add('notplace'));
+      else document.querySelectorAll('.notplace').forEach((e) => e.classList.remove('notplace'));
+    }
+    }
   }
 
   static #removeHelper(shipID){
@@ -79,9 +105,10 @@ export default class UI{
     let board_ = UI.game[`${player}`].gameboard.board;
     for (let child of children) {
       let [posX, posY] = UI.#getGridPosition(child)
-      if (board_[posX][posY] instanceof Object) {
+      if (board_[posX][posY] instanceof Object && player === 'player1') {
         child.classList.add('ship');
         child.classList.add(`${board_[posX][posY].getID()}`);
+        if(child.classList.contains('place')) child.classList.remove('place');
       }
       else if (board_[posX][posY] == null){
         child.setAttribute('class', 'grid');
