@@ -19,3 +19,9 @@ This game includes unit tests for various game functions, written using the Jest
 
 or Clone the repository to your local machine.
 Open index.html in your web browser to play the game.
+
+# ToDo
+
+- [x] An info modal to intro game
+- [x] Making ships more distinguishable to each other
+- [x] Improve computer moves
