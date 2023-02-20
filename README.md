@@ -15,7 +15,7 @@ This is a web-based implementation of the classic game Battleship, built using J
 This game includes unit tests for various game functions, written using the Jest testing framework.
 
   
-## [LIVE DEMO](berkaysson.github.io/Battleship/)
+## [LIVE DEMO](https://berkaysson.github.io/Battleship/)
 
 or Clone the repository to your local machine.
 Open index.html in your web browser to play the game.
