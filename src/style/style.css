@@ -1,15 +1,15 @@
 :root {
-  --background-color:#eaf4f4;
-  --font-color:#22223b ;
+  --background-color:#22223b;
+  --font-color:#eaf4f4 ;
   --grid-color:#90e0ef ;
   --grid-color-alt:#caf0f8 ;
   --hit-color:#d32525 ;
   --miss-color:#03045e ;
-  --ship-color:#355070 ;
-  --font-light:#4a4e69 ;
+  --ship-color:#223174 ;
+  --font-light:#ccf0f0 ;
 
   --gap: 0.7rem;
-  --grid-gap: 3px;
+  --grid-gap: 2px;
   --padding: 1rem;
   --padding-sl: 0.5rem;
   --padding-lg: 3rem;
@@ -86,6 +86,7 @@
 }
 
 html, body {
+  height: 100%;
   width: 100%;
 }
 
@@ -98,6 +99,21 @@ body {
   background-color: var(--background-color);
   font-family: 'Titillium Web', sans-serif;
   transition: all 0.1s ease-out;
+}
+
+body::before{
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('./background-image.jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+  filter: blur(4px) brightness(.7) saturate(2) contrast(1.2);
+  box-shadow: inset 0 0 100px 50px rgba(0,0,0,0.7);
 }
 
 header{
@@ -158,6 +174,7 @@ main {
   text-align: center;
   margin-bottom: var(--margin);
   font-weight: var(--font-bold);
+  font-size: var(--font-lg);
 }
 
 /* Boards */
@@ -169,6 +186,11 @@ main {
   grid-template-rows: repeat(10, 1fr);
   grid-gap: var(--grid-gap);
   width: calc(10*var(--grid-size) + var(--grid-gap)*9);
+  backdrop-filter: blur(10px);
+}
+
+#player2-gameboard{
+  cursor: crosshair;
 }
 
 /* Grids */
@@ -182,13 +204,13 @@ main {
 
 #placement-board>.place {
   background-color: var(--ship-color);
-  opacity: 0.8;
+  opacity: 0.9;
   cursor: pointer;
 }
 
 #placement-board>.notplace {
   background-color: var(--hit-color);
-  opacity: 0.8;
+  opacity: 0.9;
   cursor: not-allowed;
 }
 
@@ -199,8 +221,8 @@ main {
 }
 
 .grid:hover:not(#player1-gameboard>.grid,.hit,.miss,#placement-board>.ship, #placement-board>.grid){
-  cursor: pointer;
   border-radius: calc(var(--grid-border-radius)*3);
+  background-color: var(--grid-color);
 }
 
 /* Ships */
@@ -224,6 +246,7 @@ main {
 .hit, .miss {
   transform: scale(0.75);
   animation: scale 0.3s;
+  border:none !important;
 }
 
 .hit:not(#player1-gameboard>.hit), .miss:not(#player1-gameboard>.miss) {
@@ -297,7 +320,7 @@ main {
 
 @media screen and (max-width: 1200px) {
   :root {
-    --grid-gap: 2px;
+    --grid-gap: 1px;
     --padding-lg: 2rem;
     --margin: 1rem;
   
@@ -336,7 +359,6 @@ main {
 
 @media screen and (max-width: 500px) {
   :root {
-    --grid-gap: 1px;
     --margin: 0.8rem;
   
     --grid-size: 35px;
