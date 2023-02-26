@@ -266,11 +266,13 @@ main {
   border: 1px solid var(--font-color);
   border-radius: var(--button-border-radius);
   padding: var(--btn-padding);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .btn:hover{
   cursor: pointer;
   background-color: var(--font-color);
+  box-shadow: none;
 }
 
 .btn.active{
@@ -281,6 +283,7 @@ main {
 .btn[disabled]{
   cursor: not-allowed;
   opacity: 0.8;
+  box-shadow: none;
 }
 
 /* Modal */
