@@ -5,7 +5,7 @@
   --grid-color-alt:#caf0f8 ;
   --hit-color:#d32525 ;
   --miss-color:#03045e ;
-  --ship-color:#223174 ;
+  --ship-color:#DAA520 ;
   --font-light:#ccf0f0 ;
 
   --gap: 0.7rem;
@@ -201,6 +201,7 @@ main {
   border-radius: var(--grid-border-radius);
   height: var(--grid-size);
   aspect-ratio: 1/1;
+  border:1px solid var(--font-light);
 }
 
 #placement-board>.place {
@@ -230,12 +231,13 @@ main {
 
 .ship:not(#player2-gameboard>.ship) {
   background-color: var(--ship-color);
-  border-radius: 2px;
+  border-radius: 3px;
+  border:none;
+  transform: scale(1.08);
 }
 
 .hit {
   background-color: var(--hit-color) !important;
-  border: none !important;
   border-radius: 2px;
 }
 
@@ -247,7 +249,6 @@ main {
 .hit, .miss {
   transform: scale(0.75);
   animation: scale 0.3s;
-  border:none !important;
 }
 
 .hit:not(#player1-gameboard>.hit), .miss:not(#player1-gameboard>.miss) {
