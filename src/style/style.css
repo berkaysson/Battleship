@@ -74,9 +74,7 @@
 
 /* Main Styles */
 
-*,
-*::after,
-*::before {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -144,6 +142,7 @@ main {
 
 #placement-approve-btn{
   margin-top: 1rem;
+  margin-left: 1rem;
 }
 
 /* Game */
@@ -266,6 +265,12 @@ main {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
+.btn>i{
+  color: inherit;
+  font-size: var(--font-md);
+  padding: 0 0.3rem;
+}
+
 .btn:hover{
   cursor: pointer;
   background-color: var(--font-color);
@@ -281,6 +286,11 @@ main {
   cursor: not-allowed;
   opacity: 0.8;
   box-shadow: none;
+}
+
+.close-btn{
+  background-color: var(--hit-color);
+  color: var(--font-color);
 }
 
 /* Modal */
@@ -306,11 +316,11 @@ main {
 .modal-content {
   font-size: var(--font-lg);
   background-color: var(--background-color);
-  margin: 20% auto;
+  margin: 10% auto;
   padding: var(--padding);
   border: 1px solid var(--font-light);
   border-radius: var(--button-border-radius);
-  width: 33%;
+  width: 40%;
   text-align: center;
 }
 
@@ -320,6 +330,36 @@ main {
 
 #winner {
   font-weight: var(--font-bold);
+}
+
+#win-modal{
+  display: none;
+}
+
+#win-modal>button {
+  margin-top: 1rem;
+}
+
+#info-modal{
+  display: none;
+  padding: var(--padding);
+  font-size: var(--font-sl);
+  text-align:justify;
+}
+
+#info-modal>button{
+  display: block;
+  width: 25%;
+  margin: auto;
+}
+
+#info-modal>ol{
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+#info-modal>ol>li{
+  line-height: 1.2;
 }
 
 /* Responsive */
