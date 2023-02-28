@@ -14,7 +14,11 @@ export default {
   shipDirInfo: document.getElementById("ship-direction"),
   shipLengthInfo: document.getElementById("ship-length"),
   modal: document.getElementById("gameover-modal"),
+  winModal: document.getElementById("win-modal"),
   winnerModal: document.getElementById("winner"),
   restartModalBtn: document.getElementById("restart-modal-btn"),
-  statsModal: document.getElementById("stats-modal")
+  statsModal: document.getElementById("stats-modal"),
+  infoBtn: document.querySelectorAll(".info-btn"),
+  infoModal: document.getElementById("info-modal"),
+  infoCloseBtn: document.getElementById('modal-close-btn')
 };

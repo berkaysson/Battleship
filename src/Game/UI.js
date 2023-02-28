@@ -17,9 +17,13 @@ const {
   shipDirInfo,
   shipLengthInfo,
   modal,
+  winModal,
   winnerModal,
   restartModalBtn,
   statsModal,
+  infoBtn,
+  infoModal,
+  infoCloseBtn
 } = elements;
 
 export default class UI{
@@ -169,6 +173,8 @@ export default class UI{
     UI.#initApproveButton();
     UI.#initRemoveButton();
     UI.#initRestartButtons();
+    UI.#initInfoButton();
+    UI.#initCloseBtn();
   }
 
   static #initRotateButton(){
@@ -222,8 +228,25 @@ export default class UI{
     });
   }
 
+  static #initInfoButton(){
+    infoBtn.forEach(btn => {
+      btn.addEventListener('click',() =>{
+      modal.classList.add('show');
+      infoModal.style.display = 'block';
+      });
+    })
+  }
+
+  static #initCloseBtn(){
+    infoCloseBtn.addEventListener('click', () => {
+      modal.classList.remove('show');
+      infoModal.style.display = 'none';
+    });
+  }
+
   static #gameOver(){
     modal.classList.add('show');
+    winModal.style.display = 'block';
     winnerModal.textContent = UI.game.getWinner();
   }
 
@@ -240,5 +263,6 @@ export default class UI{
     approveBtn.setAttribute('disabled', '');
     removeBtn.classList.remove('active');
     UI.#infoDisplay();
+    winModal.style.display = 'none';
   }
 }
