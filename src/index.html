@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/5d0d5452e6.js" crossorigin="anonymous"></script>
   <title>Battleship</title>
 </head>
 <body>
@@ -40,15 +41,39 @@
     <div class="gameboard" id="placement-board">
 
     </div>
-
-    <button disabled class="btn" id="placement-approve-btn">Approve</button>
+    <div>
+      <button id="placement-info-btn" class="btn info-btn"><i class="fa-solid fa-circle-info"></i></button>
+      <button disabled class="btn" id="placement-approve-btn">Approve</button>
+    </div>
   </div>
-  
   <div class="modal" id="gameover-modal">
     <div class="modal-content">
-      <p>The winner is : <span id="winner">Player 1</span></p>
-      <div id="stats-modal"></div>
-      <button class="btn" id="restart-modal-btn">Restart now</button>
+      <div id="win-modal">
+        <p>The winner is : <span id="winner">Player 1</span></p>
+        <div id="stats-modal"></div>
+        <button class="btn" id="restart-modal-btn">Restart now</button>
+      </div>
+
+
+      <div id="info-modal">
+        <p class="intro">Welcome to the exciting world of Battleship! This iconic game has been a favorite of people
+          around the world for
+          decades, challenging players to use their strategic skills to sink their opponent's fleet of ships. Whether
+          you're
+          a seasoned player or new to the game, Battleship is easy to learn and offers endless possibilities for gameplay.
+          Get
+          ready to command your fleet, plot your attacks, and engage in an epic battle on the high seas!</p>
+        <ol> How to Play Battleship:
+          <li>Each player has a game board with two grids: one where they place their own ships and one where they keep
+            track of their opponent's moves.</li>
+          <li>Before the game begins, each player secretly places their ships on their grid. The ships can be placed
+            horizontally or vertically, but not diagonally, and cannot overlap.</li>
+          <li>Once the ships are placed, players take turns calling out a grid coordinate on their opponent's board,
+            attempting to hit one of their opponent's ships.</li>
+          <li>If a player successfully hits all of their opponent's ship's spaces, they win the game.</li>
+        </ol>
+        <button id="modal-close-btn" class="btn close-btn"><i class="fa-solid fa-circle-xmark"></i></button>
+      </div>
     </div>
   </div>
 
