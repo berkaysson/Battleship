@@ -83,6 +83,12 @@
   transition: inherit;
 }
 
+html{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -399,6 +405,11 @@ main {
     grid-row: 2/3;
   }
 
+  .modal-content {
+    margin: 10% auto;
+    width: 70%;
+  }
+  
   #restart-btn {
     margin-top:1rem;
     margin-bottom:1rem;
@@ -410,9 +421,10 @@ main {
 
 @media screen and (max-width: 500px) {
   :root {
-    --margin: 0.8rem;
+    --margin: 0.5rem;
+    --padding:0.5rem;
   
-    --grid-size: 35px;
+    --grid-size: 30px;
   
     --grid-border-radius: 2px;
   }
@@ -425,5 +437,10 @@ main {
 
   #game {
     width: 100%;
+  }
+
+  .modal-content {
+    margin: 10% auto;
+    width: 90%;
   }
 }
