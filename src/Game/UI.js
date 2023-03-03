@@ -102,6 +102,7 @@ export default class UI{
     UI.#createBoard(player2Gameboard, 'player2');
     UI.#updateBoard(player1Gameboard, 'player1');
     UI.#updateBoard(player2Gameboard, 'player2');
+    UI.#shipStyling(player1Gameboard);
   }
 
   static #updateBoard(boardDiv, player = 'player1'){
@@ -124,6 +125,30 @@ export default class UI{
         child.setAttribute('class', 'grid miss');
       }
     }
+  }
+
+  static #shipIdentifier(){
+    const ships = document.querySelectorAll('.ship');
+    let shipIDs = new Set();
+
+    ships.forEach(ship => {
+      const classList = ship.getAttribute('class').split(' ');
+      const id = classList.find(className => className.startsWith('shipID-'));
+      if(id) shipIDs.add(id);
+    })
+    return shipIDs;
+  }
+
+  static #shipStyling(boardDiv){
+    const shipsID = UI.#shipIdentifier();
+    let ships = [];
+    for(let ID of shipsID){
+      ships.push(document.getElementsByClassName(`${ID}`));
+    }
+
+    ships.forEach(ship =>{
+      console.log(ship);  // ships in placement and gameboard
+    })
   }
 
   static #createBoard(boardDiv, player, className = "grid") {
@@ -194,6 +219,7 @@ export default class UI{
     approveBtn.addEventListener("click", () => {
       UI.game.placeShipsAI();
       UI.initGameboards();
+      UI.#shipIdentifier();
     });
   }
 
