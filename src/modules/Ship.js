@@ -1,6 +1,6 @@
 const Ship = (length) => {
   let hits = 0;
-  const id = `shipID-${length}-${Date.now()}${Math.floor(Math.random() * 10)}`;
+  const id = `shipID-${Math.floor(Math.random() * 10000)}`;
 
   return {
     hit: () => hits++,
