@@ -64,15 +64,15 @@ export default class UI{
       col,
       rotateBtn.getAttribute("data-direction")]) !== false) {
       UI.#infoDisplay();
-      if(!(UI.game.player1.getShip() instanceof Object)) approveBtn.removeAttribute('disabled');
+      if(!(UI.game.player1.peekShip() instanceof Object)) approveBtn.removeAttribute('disabled');
   }
   UI.#updateBoard(placementBoard);
   }
 
   static #placementHoverHelper(row, col, hover){
-    if (!(UI.game.player1.getShip() instanceof Object)) return;
+    if (!(UI.game.player1.peekShip() instanceof Object)) return;
     const axis = rotateBtn.getAttribute("data-direction") === 'ver' ? 'x' : 'y';
-    const length = UI.game.player1.getShip().length;
+    const length = UI.game.player1.peekShip().length;
 
     for (let i = 0; i < length; i++) {
     const axisValue = axis === 'x' ? row + i : col + i;
@@ -102,7 +102,6 @@ export default class UI{
     UI.#createBoard(player2Gameboard, 'player2');
     UI.#updateBoard(player1Gameboard, 'player1');
     UI.#updateBoard(player2Gameboard, 'player2');
-    UI.#shipStyling(player1Gameboard);
   }
 
   static #updateBoard(boardDiv, player = 'player1'){
@@ -114,41 +113,21 @@ export default class UI{
         child.classList.add('ship');
         child.classList.add(`${board_[posX][posY].getID()}`);
         if(child.classList.contains('place')) child.classList.remove('place');
+        child.style.backgroundColor = board_[posX][posY].getColor();
       }
       else if (board_[posX][posY] == null){
         child.setAttribute('class', 'grid');
+        child.style.backgroundColor = ''
       }
       if (board_[posX][posY] === 'Hit!'){
         child.setAttribute('class', 'grid hit');
+        child.style.backgroundColor = ''
       }
       else if (board_[posX][posY] === 'Miss!'){
         child.setAttribute('class', 'grid miss');
+        child.style.backgroundColor = ''
       }
     }
-  }
-
-  static #shipIdentifier(){
-    const ships = document.querySelectorAll('.ship');
-    let shipIDs = new Set();
-
-    ships.forEach(ship => {
-      const classList = ship.getAttribute('class').split(' ');
-      const id = classList.find(className => className.startsWith('shipID-'));
-      if(id) shipIDs.add(id);
-    })
-    return shipIDs;
-  }
-
-  static #shipStyling(boardDiv){
-    const shipsID = UI.#shipIdentifier();
-    let ships = [];
-    for(let ID of shipsID){
-      ships.push(document.getElementsByClassName(`${ID}`));
-    }
-
-    ships.forEach(ship =>{
-      console.log(ship);  // ships in placement and gameboard
-    })
   }
 
   static #createBoard(boardDiv, player, className = "grid") {
@@ -188,9 +167,9 @@ export default class UI{
 
   static #infoDisplay(){
     shipLengthInfo.textContent =
-      UI.game.player1.getShip() instanceof Object
-        ? UI.game.player1.getShip().length
-        : UI.game.player1.getShip();
+      UI.game.player1.peekShip() instanceof Object
+        ? UI.game.player1.peekShip().length
+        : UI.game.player1.peekShip();
   }
 
   static initButtons(){
@@ -219,7 +198,6 @@ export default class UI{
     approveBtn.addEventListener("click", () => {
       UI.game.placeShipsAI();
       UI.initGameboards();
-      UI.#shipIdentifier();
     });
   }
 
