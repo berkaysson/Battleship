@@ -23,5 +23,6 @@ Open index.html in your web browser to play the game.
 # ToDo
 
 - [x] An info modal to intro game
-- [ ] Making ships more distinguishable to each other
+- [x] Making ships more distinguishable to each other
 - [ ] Improve computer moves
+- [ ] Delay to AI moves
