@@ -234,9 +234,9 @@ main {
 
 .ship:not(#player2-gameboard>.ship) {
   background-color: var(--ship-color);
-  border-radius: 3px;
-  border:none;
-  transform: scale(1.08);
+  border-radius: 45%;
+  border:calc(var(--grid-size)/6) double var(--grid-color-alt);
+  transform: scale(0.96);
 }
 
 .hit {
