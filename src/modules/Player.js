@@ -18,7 +18,7 @@ const Player = () => {
     } else return "Invalid Player.";
   }
 
-  function getShip() {
+  function peekShip() {
     if (ships.length === 0) return "No ship left.";
     ships = ships.sort((b, a) => a.length - b.length);
     return ships[0];
@@ -42,7 +42,7 @@ const Player = () => {
     gameboard,
     attack,
     checkWin,
-    getShip,
+    peekShip,
     dequeShip,
     addShip,
   };

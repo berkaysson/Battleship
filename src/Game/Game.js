@@ -10,7 +10,7 @@ const Game = () => {
 
   const placeShipsPerson = (pos) => {
     if (
-      player1.gameboard.placeShip([pos[0], pos[1]], pos[2], player1.getShip()) ===
+      player1.gameboard.placeShip([pos[0], pos[1]], pos[2], player1.peekShip()) ===
       "Ship is placed"
     ) {
       player1.dequeShip();
@@ -23,8 +23,8 @@ const Game = () => {
   }
 
   const placeShipsAI = () => {
-    while(player2.getShip() != 'No ship left.'){
-      if(player2.gameboard.placeShip(AI.getRandomPosition(), AI.getRandomDirection(), player2.getShip()) === 
+    while(player2.peekShip() != 'No ship left.'){
+      if(player2.gameboard.placeShip(AI.getRandomPosition(), AI.getRandomDirection(), player2.peekShip()) === 
         "Ship is placed"){
           player2.dequeShip()
         }
