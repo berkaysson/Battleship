@@ -2,7 +2,7 @@ import Gameboard from "./Gameboard";
 import Ship from "./Ship";
 
 const Player = () => {
-  let gameboard = Gameboard(10); // gameboard size idetifier
+  let gameboard = Gameboard(10); // gameboard size determined here
   let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
 
   function attack(enemy, hitPos) {

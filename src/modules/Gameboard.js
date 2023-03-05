@@ -92,7 +92,8 @@ const Gameboard = (size) => {
   function isAvailableToHit(position) {
     if (
       board[position[0]][position[1]] !== "Hit!" &&
-      board[position[0]][position[1]] !== "Miss!"  && isInBoard(position)
+      board[position[0]][position[1]] !== "Miss!" &&
+      isInBoard(position)
     )
       return true;
     else return false;

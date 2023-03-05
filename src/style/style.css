@@ -1,12 +1,12 @@
 :root {
-  --background-color:#22223b;
-  --font-color:#eaf4f4 ;
-  --grid-color:#90e0ef ;
-  --grid-color-alt:#caf0f8 ;
-  --hit-color:#d32525 ;
-  --miss-color:#03045e ;
-  --ship-color:#DAA520 ;
-  --font-light:#ccf0f0 ;
+  --background-color: #22223b;
+  --font-color: #eaf4f4;
+  --grid-color: #90e0ef;
+  --grid-color-alt: #caf0f8;
+  --hit-color: #d32525;
+  --miss-color: #03045e;
+  --ship-color: #DAA520;
+  --font-light: #ccf0f0;
 
   --gap: 0.7rem;
   --grid-gap: 2px;
@@ -33,15 +33,19 @@
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
+
   65% {
     transform: scale(1);
   }
+
   75% {
     transform: scale(0.9);
   }
+
   100% {
     transform: scale(0.75);
   }
@@ -52,21 +56,26 @@
     opacity: 0;
     transform: scale(0);
   }
+
   20% {
     opacity: 0.2;
     transform: scale(0.4);
   }
+
   40% {
     opacity: 0.4;
     transform: scale(0.8);
   }
+
   60% {
     opacity: 0.6;
     transform: scale(1);
   }
+
   80% {
     opacity: 0.8;
   }
+
   100% {
     opacity: 1;
   }
@@ -95,7 +104,7 @@ body {
   width: 100%;
 }
 
-body::before{
+body::before {
   content: "";
   position: fixed;
   top: 0;
@@ -104,13 +113,16 @@ body::before{
   height: 100%;
   z-index: -1;
   background-image: url('./background-image.jpg');
-  background-size:auto;
+  background-size: auto;
   background-repeat: no-repeat;
   filter: blur(4px) brightness(.7) saturate(2) contrast(1.2);
-  box-shadow: inset 0 0 100px 50px rgba(0,0,0,0.7);
+  box-shadow: inset 0 0 100px 50px rgba(0, 0, 0, 0.7);
 }
 
-header{
+header {
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
   font-size: var(--font-xlg);
   font-weight: var(--font-bold);
 }
@@ -121,7 +133,7 @@ main {
 
 /* Ship Placement */
 
-#placement-form{
+#placement-form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -130,17 +142,16 @@ main {
   gap: var(--gap);
 }
 
-#placement-header{
-  width: 420px;
+#placement-header {
   text-align: center;
 }
 
-#placement-header > *{
+#placement-header>* {
   margin-bottom: .5rem;
   margin-right: .5rem;
 }
 
-#placement-approve-btn{
+#placement-approve-btn {
   margin-top: 1rem;
   margin-left: 1rem;
 }
@@ -164,16 +175,16 @@ main {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-#game-btn-container{
+#game-btn-container {
   grid-row: 2/3;
   grid-column: 1/3;
 }
 
-#game-btn-container>#restart-btn{
+#game-btn-container>#restart-btn {
   margin-left: 0.5rem;
 }
 
-.player-info{
+.player-info {
   text-align: center;
   margin-bottom: var(--margin);
   font-weight: var(--font-bold);
@@ -193,7 +204,7 @@ main {
   backdrop-filter: blur(10px);
 }
 
-#player2-gameboard{
+#player2-gameboard {
   cursor: crosshair;
 }
 
@@ -204,28 +215,32 @@ main {
   border-radius: var(--grid-border-radius);
   height: var(--grid-size);
   aspect-ratio: 1/1;
-  border:1px solid var(--font-light);
+  border: 1px solid var(--font-light);
 }
 
 #placement-board>.place {
   background-color: var(--ship-color);
   opacity: 0.9;
   cursor: pointer;
+  border: calc(var(--grid-size)/6) double var(--grid-color-alt);
+  border-radius: 35%;
 }
 
 #placement-board>.notplace {
   background-color: var(--hit-color);
   opacity: 0.9;
   cursor: not-allowed;
+  border: calc(var(--grid-size)/6) double var(--grid-color-alt);
+  border-radius: 35%;
 }
 
 
-#player2-gameboard>.grid{
+#player2-gameboard>.grid {
   background-color: var(--grid-color-alt);
   border: 1px var(--grid-color) solid;
 }
 
-.grid:hover:not(#player1-gameboard>.grid,.hit,.miss,#placement-board>.ship, #placement-board>.grid){
+.grid:hover:not(#player1-gameboard>.grid, .hit, .miss, #placement-board>.ship, #placement-board>.grid) {
   border-radius: calc(var(--grid-border-radius)*3);
   background-color: var(--grid-color);
 }
@@ -235,7 +250,7 @@ main {
 .ship:not(#player2-gameboard>.ship) {
   background-color: var(--ship-color);
   border-radius: 45%;
-  border:calc(var(--grid-size)/6) double var(--grid-color-alt);
+  border: calc(var(--grid-size)/6) double var(--grid-color-alt);
   transform: scale(0.96);
 }
 
@@ -249,17 +264,19 @@ main {
   background-color: var(--miss-color) !important;
 }
 
-.hit, .miss {
+.hit,
+.miss {
   transform: scale(0.75);
   animation: scale 0.3s;
 }
 
-.hit:not(#player1-gameboard>.hit), .miss:not(#player1-gameboard>.miss) {
+.hit:not(#player1-gameboard>.hit),
+.miss:not(#player1-gameboard>.miss) {
   cursor: not-allowed !important;
 }
 
 /* Buttons */
-.btn{
+.btn {
   background-color: var(--font-light);
   color: var(--background-color);
   border: 1px solid var(--font-color);
@@ -269,30 +286,30 @@ main {
   height: 40px;
 }
 
-.btn>i{
+.btn>i {
   color: inherit;
   font-size: var(--font-md);
   padding: 0 0.3rem;
 }
 
-.btn:hover{
+.btn:hover {
   cursor: pointer;
   background-color: var(--font-color);
   box-shadow: none;
 }
 
-.btn.active{
+.btn.active {
   background-color: var(--background-color);
   color: var(--font-color);
 }
 
-.btn[disabled]{
+.btn[disabled] {
   cursor: not-allowed;
   opacity: 0.8;
   box-shadow: none;
 }
 
-.close-btn{
+.close-btn {
   background-color: var(--hit-color);
   color: var(--font-color);
 }
@@ -336,7 +353,7 @@ main {
   font-weight: var(--font-bold);
 }
 
-#win-modal{
+#win-modal {
   display: none;
 }
 
@@ -344,25 +361,25 @@ main {
   margin-top: 1rem;
 }
 
-#info-modal{
+#info-modal {
   display: none;
   padding: var(--padding);
   font-size: var(--font-sl);
-  text-align:justify;
+  text-align: justify;
 }
 
-#info-modal>button{
+#info-modal>button {
   display: block;
   width: 25%;
   margin: auto;
 }
 
-#info-modal>ol{
+#info-modal>ol {
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
-#info-modal>ol>li{
+#info-modal>ol>li {
   line-height: 1.2;
 }
 
@@ -373,18 +390,18 @@ main {
     --grid-gap: 1px;
     --padding-lg: 2rem;
     --margin: 1rem;
-  
+
     --grid-size: 40px;
-  
+
     --grid-border-radius: 2px;
-  
+
     --font-lg: 1.2rem;
     --font-xlg: 2rem;
     --font-md: 1rem;
   }
 
-  body::before{
-    box-shadow: inset 0 0 30px 10px rgba(0,0,0,0.9);
+  body::before {
+    box-shadow: inset 0 0 30px 10px rgba(0, 0, 0, 0.9);
   }
 
   #game {
@@ -394,11 +411,11 @@ main {
     width: calc((10*var(--grid-size) + var(--grid-gap)*9) + 4rem);
   }
 
-  #Player1{
+  #Player1 {
     grid-row: 1/2;
   }
 
-  #Player2{
+  #Player2 {
     margin-top: 1.5rem;
     grid-row: 2/3;
   }
@@ -408,27 +425,29 @@ main {
     width: 70%;
   }
 
-  #game-btn-container{
+  #game-btn-container {
     grid-row: 3/4;
-    margin-top:1rem;
-    margin-bottom:1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
 @media screen and (max-width: 500px) {
   :root {
     --margin: 0.5rem;
-    --padding:0.5rem;
-  
+    --padding: 0.5rem;
+
     --grid-size: 30px;
-  
+
     --grid-border-radius: 2px;
   }
 
-  body{font-size: 12px;}
+  body {
+    font-size: 12px;
+  }
 
-  body::before{
-    box-shadow: inset 0 0 25px 10px rgba(0,0,0,0.9);
+  body::before {
+    box-shadow: inset 0 0 15px 2px rgba(0, 0, 0, 0.9);
   }
 
   #game {
