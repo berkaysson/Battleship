@@ -459,3 +459,35 @@ main {
     width: 90%;
   }
 }
+
+@media screen and (max-width: 380px) {
+  :root {
+    --margin: 0.3rem;
+    --padding: 0.3rem;
+
+    --grid-size: 25px;
+
+    --grid-border-radius: 1px;
+    --font-lg: 1.2rem;
+    --font-xlg: 1.5rem;
+    --font-sl: 0.8rem;
+    --font-md: 1rem;
+  }
+
+  body {
+    font-size: 10px;
+  }
+
+  body::before {
+    box-shadow: none;
+  }
+
+  #game {
+    width: 100%;
+  }
+
+  .modal-content {
+    margin: 5% auto;
+    width: 90%;
+  }
+}
