@@ -186,10 +186,21 @@ export default class UI {
   }
 
   static #infoDisplay() {
-    shipLengthInfo.textContent =
-      UI.game.player1.peekShip() instanceof Object
-        ? UI.game.player1.peekShip().length
-        : UI.game.player1.peekShip();
+    // shipLengthInfo.textContent =
+    //   UI.game.player1.peekShip() instanceof Object
+    //     ? UI.game.player1.peekShip().length
+    //     : UI.game.player1.peekShip();
+    if(UI.game.player1.peekShip() instanceof Object){
+      placementInfo.style.display = 'inline-block';
+      shipDirInfo.style.display = 'inline-block';
+      shipLengthInfo.textContent = UI.game.player1.peekShip().length;
+      shipDirInfo.textContent =  rotateBtn.getAttribute("data-direction") === 'hor' ? 'horizantally': 'vertically';
+    }
+    else{
+      placementInfo.style.display = 'none';
+      shipDirInfo.style.display = 'none';
+      shipLengthInfo.textContent = `You placed all ships, start game by clicking Approve button.`;
+    }
   }
 
   static initButtons() {
@@ -232,8 +243,9 @@ export default class UI {
         UI.placementMode = "remove";
       } else if (removeBtn.textContent === "Remove mode active") {
         removeBtn.textContent = "Remove Ship";
-        placementInfo.textContent = "Please place ship of this length :";
+        placementInfo.textContent = "Please place ship with this length and direction:";
         shipDirInfo.style.display = "inline-block";
+        shipDirInfo.textContent =  rotateBtn.getAttribute("data-direction") === 'hor' ? 'horizantally': 'vertically';
         shipLengthInfo.style.display = "inline-block";
         UI.placementMode = "place";
       }
