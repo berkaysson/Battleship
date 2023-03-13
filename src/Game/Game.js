@@ -45,7 +45,9 @@ const Game = () => {
   };
 
   const attackAI = () => {
-    // computer move logic
+    checkWinner();
+    if (isGameOver === true) return;
+    player1.gameboard.receiveAttack(player2.getAttackPosition(player1.gameboard));
   };
 
   const checkWinner = () => {
