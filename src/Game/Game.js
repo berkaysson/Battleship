@@ -1,9 +1,9 @@
 import Player from "../modules/Player";
-import AI from "./AI";
+import Computer from "./Computer";
 
 const Game = () => {
-  let player1 = Player();
-  let player2 = Player();
+  let player1 = new Player;
+  let player2 = new Computer;
   let isGameOver = false;
   let winner = "";
 
@@ -28,8 +28,8 @@ const Game = () => {
     while (player2.peekShip() != "No ship left.") {
       if (
         player2.gameboard.placeShip(
-          AI.getRandomPosition(),
-          AI.getRandomDirection(),
+          player2.getRandomPosition(),
+          player2.getRandomDirection(),
           player2.peekShip()
         ) === "Ship is placed"
       ) {
@@ -45,15 +45,9 @@ const Game = () => {
   };
 
   const attackAI = () => {
-    let attackPos = AI.getRandomPosition();
-    if (!player1.gameboard.isAvailableToHit(attackPos)) {
-      attackAI();
-    } else {
-      checkWinner();
-      if (isGameOver === true) return;
-      player1.gameboard.receiveAttack(attackPos);
-      return;
-    }
+    checkWinner();
+    if (isGameOver === true) return;
+    player1.gameboard.receiveAttack(player2.getAttackPosition(player1.gameboard));
   };
 
   const checkWinner = () => {

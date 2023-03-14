@@ -8,6 +8,7 @@ const Ship = (length) => {
   return {
     hit: () => hits++,
     isSunk: () => hits === length,
+    willSunk: () => hits === length -1,
     getID: () => id,
     getColor: () => color,
     length,
