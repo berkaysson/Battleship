@@ -24,5 +24,5 @@ Open index.html in your web browser to play the game.
 
 - [x] An info modal to intro game
 - [x] Making ships more distinguishable to each other
-- [ ] Improve computer moves
+- [x] Improve computer moves
 - [ ] Delay to AI moves
