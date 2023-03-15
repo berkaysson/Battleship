@@ -222,7 +222,7 @@ main {
   background-color: var(--ship-color);
   opacity: 0.9;
   cursor: pointer;
-  border: calc(var(--grid-size)/6) double var(--grid-color-alt);
+  border: calc(var(--grid-size)/13) solid var(--grid-color-alt);
   border-radius: 35%;
 }
 
@@ -230,7 +230,7 @@ main {
   background-color: var(--hit-color);
   opacity: 0.9;
   cursor: not-allowed;
-  border: calc(var(--grid-size)/6) double var(--grid-color-alt);
+  border: calc(var(--grid-size)/10) double var(--grid-color-alt);
   border-radius: 35%;
 }
 
@@ -250,13 +250,13 @@ main {
 .ship:not(#player2-gameboard>.ship) {
   background-color: var(--ship-color);
   border-radius: 45%;
-  border: calc(var(--grid-size)/6) double var(--grid-color-alt);
+  border: calc(var(--grid-size)/6) solid var(--grid-color-alt);
   transform: scale(0.96);
 }
 
 .hit {
   background-color: var(--hit-color) !important;
-  border-radius: 2px;
+  border-radius: 35%;
 }
 
 .miss {
@@ -264,9 +264,13 @@ main {
   background-color: var(--miss-color) !important;
 }
 
-.hit,
 .miss {
-  transform: scale(0.75);
+  transform: scale(0.7);
+  opacity: 0.2;
+}
+
+.hit {
+  transform: scale(0.7);
   animation: scale 0.3s;
 }
 
