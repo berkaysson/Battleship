@@ -80,28 +80,36 @@ export default class UI {
 
   static #placementHoverHelper(row, col, hover) {
     if (!(UI.game.player1.peekShip() instanceof Object)) return;
-    const axis = rotateBtn.getAttribute("data-direction") === "ver" ? "x" : "y";
+    const direction = rotateBtn.getAttribute("data-direction") === "ver" ? "x" : "y";
     const length = UI.game.player1.peekShip().length;
 
     for (let i = 0; i < length; i++) {
-      const axisValue = axis === "x" ? row + i : col + i;
+      const axisValue = direction === "x" ? row + i : col + i;
       const grid = document.getElementById(
-        `grid-${axis === "x" ? axisValue : row}-${
-          axis === "y" ? axisValue : col
+        `grid-${direction === "x" ? axisValue : row}-${
+          direction === "y" ? axisValue : col
         }-P`
       );
-      if (grid) {
+      if (
+        grid &&
+        UI.game.player1.gameboard.isAvailableToPlace(
+          [row, col],
+          UI.game.player1.gameboard.getEndPosition(
+            [row, col],
+            rotateBtn.getAttribute("data-direction"),
+            UI.game.player1.peekShip().length
+          )
+        )
+      ) {
         if (hover === "hover") grid.classList.add("place");
         else grid.classList.remove("place");
       } else {
-        if (hover === "hover")
-          document
-            .querySelectorAll(".place")
-            .forEach((e) => e.classList.add("notplace"));
-        else
-          document
-            .querySelectorAll(".notplace")
-            .forEach((e) => e.classList.remove("notplace"));
+        for (let i = 0; i < length; i++) {
+          if (grid) {
+            if (hover === "hover") grid.classList.add("notplace");
+            else grid.classList.remove("notplace");
+          }
+        }
       }
     }
   }

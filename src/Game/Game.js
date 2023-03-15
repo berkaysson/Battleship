@@ -36,6 +36,7 @@ const Game = () => {
         player2.dequeShip();
       }
     }
+    console.log(player2.gameboard.board)
   };
 
   const attackPerson = (position) => {

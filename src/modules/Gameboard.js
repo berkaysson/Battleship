@@ -81,11 +81,28 @@ const Gameboard = (size) => {
       for (let x = startPos[0]; x <= endPos[0]; x++) {
         for (let y = startPos[1]; y <= endPos[1]; y++) {
           if (!isEmpty([x, y])) return false;
+          if (checkAdjacentGridsForPlace([x, y])) return false;
         }
       }
       return true;
     } else {
       return false;
+    }
+  }
+
+  function checkAdjacentGridsForPlace(position) {
+    const adjacentPositions = [
+      [position[0] - 1, position[1]],
+      [position[0] + 1, position[1]],
+      [position[0], position[1] - 1],
+      [position[0], position[1] + 1],
+    ];
+
+    for (let i = 0; i < adjacentPositions.length; i++) {
+      const [x, y] = adjacentPositions[i];
+      if (isInBoard([x, y]) && !isEmpty([x, y])) {
+        return true;
+      }
     }
   }
 
@@ -118,6 +135,7 @@ const Gameboard = (size) => {
     getEndPosition,
     removeShip,
     isAvailableToHit,
+    isAvailableToPlace
   };
 };
 
