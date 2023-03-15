@@ -37,6 +37,31 @@ describe("Ship", () => {
     );
   });
 
+  test("returns false when all adjacent grids are empty", () => {
+    const gameboard = Gameboard(5);
+    expect(gameboard.checkAdjacentGridsForPlace([2, 2])).toBe(false);
+  });
+
+  test("returns true when an adjacent grid is occupied by a ship", () => {
+    const gameboard = Gameboard(5);
+    gameboard.placeShip([2, 1], "hor", Ship(3));
+    expect(gameboard.checkAdjacentGridsForPlace([2, 2])).toBe(true);
+  });
+
+  test("returns true when multiple adjacent grids are occupied by a ship", () => {
+    const gameboard = Gameboard(5);
+    gameboard.placeShip([2, 1], "hor", Ship(3));
+    gameboard.placeShip([3, 3], "ver", Ship(2));
+    expect(gameboard.checkAdjacentGridsForPlace([2, 2])).toBe(true);
+    expect(gameboard.checkAdjacentGridsForPlace([1, 3])).toBe(true);
+  });
+
+  test("returns false when a grid is out of bounds", () => {
+    const gameboard = Gameboard(5);
+    expect(gameboard.checkAdjacentGridsForPlace([-1, 2])).toBe(undefined);
+    expect(gameboard.checkAdjacentGridsForPlace([2, 5])).toBe(undefined);
+  });
+
   test("receiveAttack to outside of gameboard", () => {
     expect(gameboard.receiveAttack([-1, 0])).toBe("Invalid position.");
   });
