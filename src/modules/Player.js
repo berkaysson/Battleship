@@ -15,18 +15,6 @@ class Player {
     }
   }
 
-  checkWin(enemy) {
-    if (this.checkEnemy(enemy)) {
-      if (!enemy.gameboard.isShipLeft()) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return "Invalid Player.";
-    }
-  }
-
   peekShip() {
     if (this.ships.length === 0) {
       return "No ship left.";
@@ -41,14 +29,6 @@ class Player {
 
   addShip(shipLength) {
     this.ships.unshift(Ship(shipLength));
-  }
-
-  checkEnemy(enemy) {
-    if (enemy instanceof Object) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }
 

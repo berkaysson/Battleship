@@ -51,10 +51,10 @@ const Game = () => {
   };
 
   const checkWinner = () => {
-    if (player1.checkWin(player2)) {
+    if (!player2.gameboard.isShipLeft()) {
       winner = "Player 1";
       isGameOver = true;
-    } else if (player2.checkWin(player1)) {
+    } else if (!player1.gameboard.isShipLeft()) {
       winner = "Computer";
       isGameOver = true;
     } else {
