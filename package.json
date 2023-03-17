@@ -8,7 +8,7 @@
     "test-watch": "jest --watchAll ",
     "build": "webpack",
     "watch": "webpack --progress --watch",
-    "dev": "webpack serve"
+    "serve": "webpack serve"
   },
   "repository": {
     "type": "git",
