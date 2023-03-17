@@ -174,12 +174,26 @@ export default class UI {
   }
 
   static #BoardAttackManager(grid) {
-    if (UI.game.attackPerson(UI.#getGridPosition(grid)) != false) {
-      UI.game.attackAI();
+    if (UI.game.attackPerson(UI.#getGridPosition(grid)) !== false) {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          UI.game.attackAI();
+          resolve();
+        }, Math.floor(Math.random() * (300 - 150 + 1)) + 150);
+      })
+      .then(() => {
+        if (UI.game.getisGameOver()) {
+          UI.#gameOver();
+        }
+        UI.#updateBoard(player1Gameboard, "player1");
+      });
+    } else {
+      if (UI.game.getisGameOver()) {
+        UI.#gameOver();
+      }
+      UI.#updateBoard(player1Gameboard, "player1");
     }
-    if (UI.game.getisGameOver()) UI.#gameOver();
     UI.#updateBoard(player2Gameboard, "player2");
-    UI.#updateBoard(player1Gameboard, "player1");
   }
 
   static #createGrid(row, col, player, className = "grid") {
@@ -194,10 +208,6 @@ export default class UI {
   }
 
   static #infoDisplay() {
-    // shipLengthInfo.textContent =
-    //   UI.game.player1.peekShip() instanceof Object
-    //     ? UI.game.player1.peekShip().length
-    //     : UI.game.player1.peekShip();
     if(UI.game.player1.peekShip() instanceof Object){
       placementInfo.style.display = 'inline-block';
       shipDirInfo.style.display = 'inline-block';
