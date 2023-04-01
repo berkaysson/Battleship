@@ -318,6 +318,12 @@ main {
   color: var(--font-color);
 }
 
+.close-btn:hover {
+  background-color: var(--hit-color);
+  color: var(--font-color);
+  opacity: 0.9;
+}
+
 /* Modal */
 .modal {
   display: none;
